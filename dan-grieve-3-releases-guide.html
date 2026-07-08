@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 3 Releases — Dan Grieve Short Game System | Smash Factor Golf Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #071210;
+    --studio-dark: #1a3222;
+    --performance-green: #2d6a4f;
+    --champagne-gold: #c9a84c;
+    --deep-gold: #8a6820;
+    --parchment: #f5f0e8;
+    --parchment-dim: #e8e0d0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--deep-forest);
+    color: var(--parchment);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(45,106,79,0.25), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(201,168,76,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  .hero { padding: 90px 0 60px; border-bottom: 1px solid rgba(201,168,76,0.25); }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--champagne-gold); }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5.5vw, 54px);
+    line-height: 1.12;
+    color: var(--parchment);
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+  h1 em { font-style: normal; color: var(--champagne-gold); }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(19px, 2.4vw, 23px);
+    color: var(--parchment-dim);
+    max-width: 62ch;
+    font-weight: 500;
+  }
+  .hero-meta {
+    margin-top: 34px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span { color: var(--champagne-gold); }
+
+  section { padding: 56px 0; border-bottom: 1px solid rgba(245,240,232,0.08); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    background: rgba(45,106,79,0.15);
+    border: 1px solid rgba(45,106,79,0.4);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.4vw, 30px);
+    color: var(--parchment);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--parchment-dim);
+    max-width: 68ch;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  p { color: rgba(245,240,232,0.85); }
+
+  .toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .toc a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--parchment-dim);
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.2);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+  }
+  .toc a:hover { border-color: var(--champagne-gold); color: var(--champagne-gold); }
+
+  /* ---------- 3 RELEASES OVERVIEW TABLE ---------- */
+  .rel-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 15px; }
+  .rel-table th {
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--champagne-gold);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--champagne-gold);
+  }
+  .rel-table td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    vertical-align: top;
+    color: rgba(245,240,232,0.88);
+  }
+  .rel-table tr:last-child td { border-bottom: none; }
+  .rel-table td.tag {
+    font-family: 'DM Mono', monospace;
+    color: var(--parchment);
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  /* ---------- RELEASE DEEP-DIVE CARD ---------- */
+  .release-card {
+    background: rgba(26,50,34,0.4);
+    border: 1px solid rgba(245,240,232,0.12);
+    border-radius: 6px;
+    padding: 28px 30px;
+    margin-bottom: 22px;
+  }
+  .release-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .release-num {
+    font-family: 'Cinzel', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--champagne-gold);
+    opacity: 0.6;
+    line-height: 1;
+  }
+  .release-card h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--parchment);
+    letter-spacing: 0.01em;
+  }
+  .release-card .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16.5px;
+    color: var(--parchment-dim);
+    margin-bottom: 18px;
+  }
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+  @media (max-width: 640px) { .spec-grid { grid-template-columns: 1fr; } }
+  .spec-item {
+    background: var(--studio-dark);
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 12px 16px;
+    border-radius: 4px;
+  }
+  .spec-item .k {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--performance-green);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .spec-item .v { font-size: 14px; color: var(--parchment); }
+  .release-card .feel {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(245,240,232,0.15);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--parchment-dim);
+  }
+  .release-card .feel span { color: var(--champagne-gold); font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .release-card .best-for {
+    margin-top: 12px;
+    font-size: 14px;
+    color: rgba(245,240,232,0.7);
+  }
+  .release-card .best-for strong { color: var(--champagne-gold); }
+
+  /* ---------- GOLFING IQ ---------- */
+  .iq-steps { counter-reset: iq; margin-top: 22px; }
+  .iq-step {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .iq-step:last-child { border-bottom: none; }
+  .iq-step .qnum {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: var(--champagne-gold);
+    opacity: 0.7;
+    font-weight: 600;
+  }
+  .iq-step h4 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--parchment); margin-bottom: 2px; }
+  .iq-step p { font-size: 14.5px; color: rgba(245,240,232,0.78); }
+
+  /* ---------- QUOTE BLOCK ---------- */
+  .coach-note {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin: 28px 0;
+  }
+  .coach-note .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .coach-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--parchment);
+    line-height: 1.5;
+  }
+
+  /* ---------- DRILL CARDS ---------- */
+  .drill {
+    background: rgba(26,50,34,0.4);
+    border: 1px solid rgba(245,240,232,0.12);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+  }
+  .drill-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+  .drill h3 { font-family: 'Cinzel', serif; font-weight: 600; font-size: 18px; color: var(--champagne-gold); letter-spacing: 0.01em; }
+  .drill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    border: 1px solid var(--performance-green);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .drill ol, .drill ul { padding-left: 20px; margin-top: 10px; }
+  .drill li { margin-bottom: 6px; color: rgba(245,240,232,0.85); font-size: 15px; }
+  .drill .feel {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(245,240,232,0.15);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--parchment-dim);
+  }
+  .drill .feel span { color: var(--champagne-gold); font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ---------- BUNKER / PITCH TWO-COL ---------- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+  .info-card {
+    background: rgba(26,50,34,0.5);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--performance-green);
+    padding: 20px 22px;
+    border-radius: 4px;
+  }
+  .info-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+  .info-card p { font-size: 14.5px; color: rgba(245,240,232,0.78); }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 40px 0 60px; text-align: center; }
+  .brandmark {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: var(--champagne-gold);
+    margin-bottom: 6px;
+  }
+  footer p { font-size: 12.5px; color: rgba(245,240,232,0.4); font-family: 'DM Mono', monospace; }
+  footer p.source { margin-top: 10px; color: rgba(245,240,232,0.3); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Smash Factor Golf Performance — Player Reference</div>
+    <h1>The 3 Releases: <em>Dan Grieve's</em> Short Game System</h1>
+    <p class="hero-sub">Three shots, one repeatable rotation engine. The framework Dan Grieve has used to help tour pros win majors and amateurs stop fearing the chip shot — built around a single pivot, with setup changes doing all the work.</p>
+    <div class="hero-meta">
+      <div>System: <span>Chip & Run · Soft Landing · Lob</span></div>
+      <div>Core engine: <span>One pivot, three setups</span></div>
+      <div>Framework: <span>Golfing IQ shot selection</span></div>
+    </div>
+    <div class="toc">
+      <a href="#overview">The 3 Releases</a>
+      <a href="#r1">Release 1</a>
+      <a href="#r2">Release 2</a>
+      <a href="#r3">Release 3</a>
+      <a href="#iq">Golfing IQ</a>
+      <a href="#pitch-bunker">Pitching & Bunkers</a>
+      <a href="#drills">Drills</a>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <span class="section-label">01 — The Big Idea</span>
+    <h2>One Pivot, Three Shots</h2>
+    <p class="section-intro">Most golfers try to invent a new technique for every greenside situation. Grieve's system does the opposite: one repeatable rotation-based swing engine, with only setup, ball position, shaft angle, and follow-through length changing between shots — never the fundamental motion.</p>
+
+    <table class="rel-table">
+      <thead>
+        <tr><th>Release</th><th>Shot</th><th>Trajectory</th><th>Best Use</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tag">Release 1</td>
+          <td>Chip & Run</td>
+          <td>Low, running</td>
+          <td>The default, lowest-risk shot — good lie, plenty of green to work with.</td>
+        </tr>
+        <tr>
+          <td class="tag">Release 2</td>
+          <td>Soft Landing</td>
+          <td>Mid-height, checks with spin</td>
+          <td>Carrying rough or a fringe onto the putting surface where the ball needs to sit down quickly.</td>
+        </tr>
+        <tr>
+          <td class="tag">Release 3</td>
+          <td>Lob Shot</td>
+          <td>High, minimal rollout</td>
+          <td>Short-sided pins, greenside bunkers, and situations with very little green to work with.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"You don't need 15 short game shots — you need 3 excellent ones."</p>
+    </div>
+  </section>
+
+  <!-- RELEASE 1 -->
+  <section id="r1">
+    <span class="section-label">02 — Foundation Shot</span>
+    <h2>Release 1: The Chip & Run</h2>
+    <p class="section-intro">The most reliable, lowest-risk shot in the short game — and the one every other release is built on top of. This is a rotation shot, not a hands or arms shot.</p>
+
+    <div class="release-card">
+      <div class="release-head">
+        <span class="release-num">R1</span>
+        <h3>The Pivot</h3>
+      </div>
+      <p class="subtitle">An imaginary pole runs from the lead foot through the lead hip, shoulder, and up through the lead ear — all rotation happens around this fixed axis, with no lateral weight shift.</p>
+
+      <div class="spec-grid">
+        <div class="spec-item"><span class="k">Stance width</span><span class="v">One clubhead width, lead foot flared out</span></div>
+        <div class="spec-item"><span class="k">Weight</span><span class="v">~70% favoring the lead side, stays there</span></div>
+        <div class="spec-item"><span class="k">Ball position</span><span class="v">Just back of center</span></div>
+        <div class="spec-item"><span class="k">Handle</span><span class="v">Lifted — no angle in the lead wrist</span></div>
+        <div class="spec-item"><span class="k">Follow-through</span><span class="v">Butt of grip finishes pointing at the lead hip</span></div>
+        <div class="spec-item"><span class="k">Distance control</span><span class="v">Same technique, different loft — 7-iron rolls out more, sand wedge carries more and rolls less</span></div>
+      </div>
+
+      <div class="feel"><span>The feel</span> — maintain connection between the triceps and rib cage throughout the swing. A useful rehearsal: lift onto the toes of the trail foot to physically remove the ability to sway, forcing the rotation to happen purely around the lead-side pivot.</div>
+      <p class="best-for"><strong>Best for:</strong> any shot with a clean-to-average lie and enough green to work with. If in doubt, default to Release 1 — it has the largest margin for error of the three.</p>
+    </div>
+  </section>
+
+  <!-- RELEASE 2 -->
+  <section id="r2">
+    <span class="section-label">03 — Spin Shot</span>
+    <h2>Release 2: The Soft Landing</h2>
+    <p class="section-intro">Built for situations where the ball needs to carry an obstacle — rough, a fringe, a run-off area — and then sit down quickly rather than releasing out toward the hole.</p>
+
+    <div class="release-card">
+      <div class="release-head">
+        <span class="release-num">R2</span>
+        <h3>Sliding the Club Under the Ball</h3>
+      </div>
+      <p class="subtitle">The technique engages the middle section of the wedge's bounce, sliding the club under the ball to impart extra spin rather than pinching it off the turf.</p>
+
+      <div class="spec-grid">
+        <div class="spec-item"><span class="k">Stance width</span><span class="v">Two clubheads wide, lead foot flared out</span></div>
+        <div class="spec-item"><span class="k">Ball position</span><span class="v">Just forward of center</span></div>
+        <div class="spec-item"><span class="k">Shaft lean</span><span class="v">Neutral at address</span></div>
+        <div class="spec-item"><span class="k">Backswing</span><span class="v">Toe of the club points up, protecting loft and bounce</span></div>
+        <div class="spec-item"><span class="k">Follow-through</span><span class="v">Club swings past the hands — butt of grip finishes pointing at the belt buckle or sternum</span></div>
+        <div class="spec-item"><span class="k">Grip pressure</span><span class="v">Relaxed — gripping too tight makes the ball jump off the face instead of spinning</span></div>
+      </div>
+
+      <div class="feel"><span>The feel</span> — the butt of the grip actively passes the hands through impact, rather than the hands staying ahead of the clubhead the way they would on a full iron shot.</div>
+      <p class="best-for"><strong>Best for:</strong> a reasonably good lie with some fringe or rough to carry. Requires the club to get cleanly under the ball, so a plugged or hard-pan lie should default back to Release 1 instead.</p>
+    </div>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"If you find yourself on that short, sticky grass around the fringe with not a lot of green to work with, the right shot is to carry it onto the putting surface and let it feed toward the hole."</p>
+    </div>
+  </section>
+
+  <!-- RELEASE 3 -->
+  <section id="r3">
+    <span class="section-label">04 — Escape Shot</span>
+    <h2>Release 3: The Lob Shot</h2>
+    <p class="section-intro">The highest-risk, highest-reward release — a longer swing that gets the ball up quickly and stops it close to where it lands, for the tightest pin positions and greenside trouble.</p>
+
+    <div class="release-card">
+      <div class="release-head">
+        <span class="release-num">R3</span>
+        <h3>Trailing Bounce, Active Release</h3>
+      </div>
+      <p class="subtitle">This release uses the trailing section of the club's bounce and requires actively releasing the clubhead through impact rather than holding the face off.</p>
+
+      <div class="spec-grid">
+        <div class="spec-item"><span class="k">Stance width</span><span class="v">Wider stance than R1/R2</span></div>
+        <div class="spec-item"><span class="k">Ball position</span><span class="v">Toward the lead heel</span></div>
+        <div class="spec-item"><span class="k">Shaft angle</span><span class="v">Leaning slightly away from the target</span></div>
+        <div class="spec-item"><span class="k">Hands at address</span><span class="v">Kept low — some angle held in the lead wrist</span></div>
+        <div class="spec-item"><span class="k">Face</span><span class="v">Opened at address</span></div>
+        <div class="spec-item"><span class="k">Follow-through</span><span class="v">Butt of grip finishes pointing toward the trail hip</span></div>
+      </div>
+
+      <div class="feel"><span>The feel</span> — this is a longer, fuller swing than the other two releases, with the clubhead actively released and allowed to pass through the hands at impact rather than being restricted.</div>
+      <p class="best-for"><strong>Best for:</strong> high-risk, short-sided situations with minimal green to work with, or escaping greenside trouble where height and a quick stop matter more than precision distance control.</p>
+    </div>
+  </section>
+
+  <!-- GOLFING IQ -->
+  <section id="iq">
+    <span class="section-label">05 — Shot Selection</span>
+    <h2>Golfing IQ: Choosing the Right Release</h2>
+    <p class="section-intro">Technique alone doesn't lower scores — decision-making does. Work through these four questions, in order, before every greenside shot.</p>
+
+    <div class="iq-steps">
+      <div class="iq-step">
+        <span class="qnum">1</span>
+        <div><h4>What does the lie allow?</h4><p>A tight or hard-pan lie rules out Release 2 immediately — the club can't slide cleanly under the ball. A plugged or heavy lie pushes toward Release 1.</p></div>
+      </div>
+      <div class="iq-step">
+        <span class="qnum">2</span>
+        <div><h4>Where is the pin?</h4><p>Plenty of green to work with favors Release 1. A tucked, short-sided pin with little room favors Release 3.</p></div>
+      </div>
+      <div class="iq-step">
+        <span class="qnum">3</span>
+        <div><h4>What's the simplest shot available?</h4><p>Between two releases that could both technically work, pick the one with the larger margin for error.</p></div>
+      </div>
+      <div class="iq-step">
+        <span class="qnum">4</span>
+        <div><h4>What am I most confident in today?</h4><p>Confidence shifts week to week. The shot that's been trained most recently and successfully is usually the right one to trust under pressure.</p></div>
+      </div>
+    </div>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"The lie tells you what you can do. The pin tells you what you want to do. Your confidence tells you what you should do. And if in doubt — Release 1, always. More room for error, every time."</p>
+    </div>
+  </section>
+
+  <!-- PITCHING & BUNKERS -->
+  <section id="pitch-bunker">
+    <span class="section-label">06 — Extending the System</span>
+    <h2>Applying the Releases to Pitching & Bunkers</h2>
+    <p class="section-intro">The same three-release logic extends beyond greenside chipping into full pitch shots and bunker play.</p>
+
+    <div class="two-col">
+      <div class="info-card">
+        <h3>Pitching (Inside 100 Yards)</h3>
+        <p>A pitch shot spends more time in the air and is played from farther off the green than a chip. Club selection controls trajectory more than technique does — the same swing with a lob wedge produces a high, soft shot, while the identical motion with a pitching wedge produces a low, penetrating flight that releases more on landing.</p>
+      </div>
+      <div class="info-card">
+        <h3>Bunker Play</h3>
+        <p>Bunker technique borrows directly from the release system — shot height and spin are controlled the same way, by engaging different parts of the club's bounce and adjusting face angle and swing length, rather than by changing the fundamental motion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRILLS -->
+  <section id="drills">
+    <span class="section-label">07 — Practice</span>
+    <h2>Signature Drills</h2>
+    <p class="section-intro">Two drills to build the core skills the system depends on: eliminating lateral sway on Release 1, and controlling spin quality for both pitching and Release 2.</p>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Trail-Toe Pivot Drill</h3>
+        <span class="drill-tag">Release 1 — Rotation</span>
+      </div>
+      <ol>
+        <li>Take a normal Release 1 setup and grip.</li>
+        <li>Lift the trail foot up onto its toe, removing weight from that side entirely.</li>
+        <li>Hit chip shots from this position — this makes lateral movement physically impossible, forcing the swing to happen purely as rotation around the lead-side pivot.</li>
+        <li>Return to a normal stance and try to recreate the identical feeling of rotating around that same fixed pole.</li>
+      </ol>
+      <div class="feel"><span>Why it works</span> — lateral weight transfer is a good thing in a full swing, but in the short game it's what causes thin and fat strikes. This drill makes the correct rotary motion the only physically available option.</div>
+    </div>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Tee-Peg Strike Drill</h3>
+        <span class="drill-tag">Pitching & Release 2 — Spin Quality</span>
+      </div>
+      <ol>
+        <li>Push a tee into the ground at driver height and rest a ball on top of it.</li>
+        <li>Using a 54° or 56° wedge, hover the clubhead at the bottom of the ball — don't ground it.</li>
+        <li>Hit the shot trying to clip the ball cleanly off the tee without knocking the tee out of the ground.</li>
+        <li>The goal is contact on the third or fourth groove of the face — this produces the lower, spin-heavy flight that's the signature of a well-struck pitch or Release 2 shot.</li>
+      </ol>
+      <div class="feel"><span>The feel</span> — this drill trains a clipping, ball-first contact rather than a steep, divot-taking strike. Disturbing the tee slightly is fine; breaking it means the strike was too steep.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brandmark">Smash Factor Golf Performance</div>
+    <p>Body-Swing Connection Coaching — Charleston, SC</p>
+    <p class="source">Reference framework: Dan Grieve, "3 Releases: The Short Game System" &amp; Golf Monthly instructional content</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
