@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wide & Online — Backswing Sequencing Guide | Smash Factor Golf Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #071210;
+    --studio-dark: #1a3222;
+    --performance-green: #2d6a4f;
+    --champagne-gold: #c9a84c;
+    --deep-gold: #8a6820;
+    --parchment: #f5f0e8;
+    --parchment-dim: #e8e0d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep-forest);
+    color: var(--parchment);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Texture: faint radial like a putting green under lights */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(45,106,79,0.25), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(201,168,76,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 90px 0 60px;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--champagne-gold);
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5.5vw, 54px);
+    line-height: 1.12;
+    color: var(--parchment);
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--champagne-gold);
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(19px, 2.4vw, 23px);
+    color: var(--parchment-dim);
+    max-width: 62ch;
+    font-weight: 500;
+  }
+  .hero-meta {
+    margin-top: 34px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span { color: var(--champagne-gold); }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid rgba(245,240,232,0.08); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    background: rgba(45,106,79,0.15);
+    border: 1px solid rgba(45,106,79,0.4);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.4vw, 30px);
+    color: var(--parchment);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--parchment-dim);
+    max-width: 68ch;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  p { color: rgba(245,240,232,0.85); }
+
+  /* ---------- DIAGNOSIS TABLE ---------- */
+  .diag-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .diag-table th {
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--champagne-gold);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--champagne-gold);
+  }
+  .diag-table td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    vertical-align: top;
+    color: rgba(245,240,232,0.88);
+  }
+  .diag-table tr:last-child td { border-bottom: none; }
+  .diag-table td.ball-flight {
+    font-family: 'DM Mono', monospace;
+    color: var(--parchment);
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  /* ---------- CAUSE CARDS ---------- */
+  .cause-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media (max-width: 640px) { .cause-grid { grid-template-columns: 1fr; } }
+  .cause-card {
+    background: rgba(26,50,34,0.5);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--performance-green);
+    padding: 20px 22px;
+    border-radius: 4px;
+  }
+  .cause-card .num {
+    font-family: 'DM Mono', monospace;
+    color: var(--champagne-gold);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .cause-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--parchment);
+    margin-bottom: 6px;
+  }
+  .cause-card p { font-size: 14.5px; color: rgba(245,240,232,0.75); }
+
+  /* ---------- SEQUENCE / STRETCH CYCLE ---------- */
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+    margin: 30px 0 8px;
+  }
+  .chain-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--parchment);
+    background: var(--studio-dark);
+    border: 1px solid var(--champagne-gold);
+    padding: 9px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .chain-arrow {
+    color: var(--champagne-gold);
+    font-size: 15px;
+    padding: 0 10px;
+  }
+
+  /* ---------- QUOTE BLOCK ---------- */
+  .coach-note {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin: 28px 0;
+    position: relative;
+  }
+  .coach-note .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .coach-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--parchment);
+    line-height: 1.5;
+  }
+
+  /* ---------- DRILL CARDS ---------- */
+  .drill {
+    background: rgba(26,50,34,0.4);
+    border: 1px solid rgba(245,240,232,0.12);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+  }
+  .drill-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .drill h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--champagne-gold);
+    letter-spacing: 0.01em;
+  }
+  .drill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    border: 1px solid var(--performance-green);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .drill ol, .drill ul {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+  .drill li { margin-bottom: 6px; color: rgba(245,240,232,0.85); font-size: 15px; }
+  .drill .feel {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(245,240,232,0.15);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--parchment-dim);
+  }
+  .drill .feel span { color: var(--champagne-gold); font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist {
+    list-style: none;
+    margin-top: 22px;
+  }
+  .checklist li {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .chk {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid var(--champagne-gold);
+    border-radius: 4px;
+    margin-top: 2px;
+  }
+  .checklist .txt strong { color: var(--parchment); display: block; margin-bottom: 2px; font-size: 15.5px;}
+  .checklist .txt span { color: rgba(245,240,232,0.65); font-size: 14px; }
+
+  /* ---------- PRE-SHOT ROUTINE STEPS ---------- */
+  .routine {
+    counter-reset: step;
+    margin-top: 24px;
+  }
+  .routine-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .routine-step:last-child { border-bottom: none; }
+  .routine-step .stepnum {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    color: var(--champagne-gold);
+    opacity: 0.65;
+    font-weight: 600;
+  }
+  .routine-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 4px;
+  }
+  .routine-step p { font-size: 14.5px; color: rgba(245,240,232,0.78); }
+
+  /* ---------- SETUP RULES ---------- */
+  .setup-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+  }
+  @media (max-width: 700px) { .setup-grid { grid-template-columns: 1fr; } }
+  .setup-item {
+    background: var(--studio-dark);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 18px 20px;
+    border-radius: 4px;
+  }
+  .setup-item .k {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--performance-green);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .setup-item .v {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    color: var(--parchment);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0 60px;
+    text-align: center;
+  }
+  .brandmark {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: var(--champagne-gold);
+    margin-bottom: 6px;
+  }
+  footer p { font-size: 12.5px; color: rgba(245,240,232,0.4); font-family: 'DM Mono', monospace; }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .toc a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--parchment-dim);
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.2);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+  }
+  .toc a:hover {
+    border-color: var(--champagne-gold);
+    color: var(--champagne-gold);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Smash Factor Golf Performance — Player Reference</div>
+    <h1>Wide &amp; Online: <em>Backswing Sequencing</em> & the Stretch Cycle</h1>
+    <p class="hero-sub">A field guide to fixing an inside-and-shut backswing — built from a real coaching session breaking down path, face, and the arm structure that gets you back to the ball on line.</p>
+    <div class="hero-meta">
+      <div>Focus: <span>Backswing width & sequencing</span></div>
+      <div>Applies to: <span>Irons & driver</span></div>
+      <div>Core fault: <span>Early rotation → inside & shut</span></div>
+    </div>
+    <div class="toc">
+      <a href="#diagnosis">Diagnosis</a>
+      <a href="#causes">Root Causes</a>
+      <a href="#sequence">Stretch Cycle</a>
+      <a href="#setup">Setup</a>
+      <a href="#drills">Drills</a>
+      <a href="#checklist">Error Check</a>
+      <a href="#preshot">Pre-Shot Routine</a>
+    </div>
+  </div>
+
+  <!-- DIAGNOSIS -->
+  <section id="diagnosis">
+    <span class="section-label">01 — Read the Ball</span>
+    <h2>What Your Ball Flight Is Telling You</h2>
+    <p class="section-intro">Before you touch a swing thought, let the ball flight diagnose the swing. Path and face relationship — not feel — decides what you work on next.</p>
+
+    <table class="diag-table">
+      <thead>
+        <tr><th>Ball Flight</th><th>Path</th><th>Face</th><th>What It Means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ball-flight">Push</td>
+          <td>Too far inside-out</td>
+          <td>Square to the path</td>
+          <td>The path is leaking right, but the face is matching it — starts right and holds.</td>
+        </tr>
+        <tr>
+          <td class="ball-flight">Hook</td>
+          <td>Too far inside-out</td>
+          <td>Closed relative to the path</td>
+          <td>Same inside path as the push, but the face is shut on top of it — starts right, turns hard left.</td>
+        </tr>
+        <tr>
+          <td class="ball-flight">Pull</td>
+          <td>Across the line / steep</td>
+          <td>Can be square to closed</td>
+          <td>Backswing gets across the line at the top, club thrusts down too far inside on the way down.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ROOT CAUSES -->
+  <section id="causes">
+    <span class="section-label">02 — The "Why"</span>
+    <h2>Two Root Causes of an Inside, Shut Club</h2>
+    <p class="section-intro">Almost every case of push/hook/pull traces back to one (or both) of these two moves happening in the first two feet of the takeaway.</p>
+
+    <div class="cause-grid">
+      <div class="cause-card">
+        <span class="num">Fault 01</span>
+        <h3>Early Rotation</h3>
+        <p>Hips and shoulders start turning together right out of address instead of the arms and hands creating width first. Everything turns at once — there's no separation, so the club gets dragged around the body instead of staying in front of it.</p>
+      </div>
+      <div class="cause-card">
+        <span class="num">Fault 02</span>
+        <h3>Flipping the Club Inside</h3>
+        <p>The hands roll the club inside and shut early in the takeaway. Once the face is shut and the path is inside, it doesn't matter what the arms do from there — the club is already stuck on a plane that has to thrust back down too far inside.</p>
+      </div>
+    </div>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"So too much rotation, club slipping inside and shut... From there, if you just keep turning, it doesn't matter about your arm plane — the club's always going to be shut and across."</p>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="setup">
+    <span class="section-label">03 — Foundation</span>
+    <h2>Setup: Get It Right Before You Move</h2>
+    <p class="section-intro">Every fix in this guide is built on top of a correct setup. Rebuild it the same way, every time, in this order.</p>
+
+    <div class="setup-grid">
+      <div class="setup-item">
+        <span class="k">Step 1</span>
+        <span class="v">Grip → feet together → club flat on the ground → set posture (hips back, balanced — not on toes or heels).</span>
+      </div>
+      <div class="setup-item">
+        <span class="k">Step 2</span>
+        <span class="v">Left foot moves ~4 inches forward from center. This is the ball position for every club except driver.</span>
+      </div>
+      <div class="setup-item">
+        <span class="k">Step 3</span>
+        <span class="v">Right foot sets the stance width based on club: wedge = narrow/middle, mid-irons = a touch wider, driver = ball off the left heel, stance widest.</span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px; font-size:14.5px; color:rgba(245,240,232,0.65);">Key handle height check: if the handle is too low or too high at address, chest position changes with it — get handle height correct first, everything else stacks on top of it.</p>
+  </section>
+
+  <!-- STRETCH CYCLE -->
+  <section id="sequence">
+    <span class="section-label">04 — The Engine</span>
+    <h2>The Stretch Cycle: Correct Downswing Sequence</h2>
+    <p class="section-intro">A true release isn't manipulated with the hands — it's the byproduct of the body sequencing correctly. Each link accelerates, then decelerates, handing energy to the next link in order.</p>
+
+    <div class="chain">
+      <div class="chain-link">Lower Body</div><span class="chain-arrow">→</span>
+      <div class="chain-link">Hips</div><span class="chain-arrow">→</span>
+      <div class="chain-link">Thorax</div><span class="chain-arrow">→</span>
+      <div class="chain-link">Lead Arm</div><span class="chain-arrow">→</span>
+      <div class="chain-link">Club</div>
+    </div>
+
+    <p style="margin-top:18px; font-size:15px;">Pressure moves into the lead foot first. That creates a ground-reaction force that pushes the body up and rotates it — which is what finally releases the club, not a hand or wrist action timed on purpose.</p>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"I want the left hand to pull the left arm, to pull the left shoulder, to pull the left lat, hip, thigh, knee — in that order. You're stretching, stretching, stretching, and then in transition, push hard — which stretches everything even more."</p>
+    </div>
+
+    <p style="margin-top:8px; font-size:14.5px; color:rgba(245,240,232,0.7);"><strong style="color:var(--champagne-gold);">On release style:</strong> a stronger grip with left-wrist flexion (a closed face) generally needs more body rotation to hold the face off (a "body release"). A weaker grip needs the hands and arms to actively release the club through impact to square the face (a "hand/arm release"). Neither is more correct — match the release style to the grip and wrist structure, don't fight it.</p>
+  </section>
+
+  <!-- DRILLS -->
+  <section id="drills">
+    <span class="section-label">05 — Practice</span>
+    <h2>Three Drills for Width & Arm Structure</h2>
+    <p class="section-intro">Use these away from full-speed swings first. Build the position, then add speed once the shape is repeatable.</p>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Wide-and-Stop Backswing</h3>
+        <span class="drill-tag">Backswing Width</span>
+      </div>
+      <ol>
+        <li>Set posture. Keep the lower body quiet on the first move — no early hip or shoulder turn.</li>
+        <li>Rock the shoulders and push the hands/club away, keeping the club outside the hands (not pulled in).</li>
+        <li>Stop at P2 (club shaft parallel to the ground) and check: is the club a touch outside the hands, feeling open?</li>
+        <li>From there, slowly turn to the top — let the width of the arms wind up the body rather than the body dragging the arms.</li>
+        <li>From the top, simply chip the ball out — no need to swing hard. This is a position drill, not a power drill.</li>
+      </ol>
+      <div class="feel"><span>The feel</span> — the width of your hands should feel like it's pulling you into your right side, almost stretching you, rather than your body turning and dragging the arms along behind it.</div>
+    </div>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Cross-Handed Arm Structure Drill</h3>
+        <span class="drill-tag">Online at the Top</span>
+      </div>
+      <ol>
+        <li>Take your grip, then switch your hands — left hand goes below the right (for a right-handed golfer).</li>
+        <li>Rock the shoulders away from the ball. The trail (now top) arm will automatically fold on its own.</li>
+        <li>Keep the stretch on the lead arm as it moves wide and across — this is the feeling of an "online," in-front-of-you arm structure instead of one that gets deep and across.</li>
+        <li>Switch grip back to normal and repeat the same feeling at speed.</li>
+      </ol>
+      <div class="feel"><span>Why it works</span> — it's physically difficult to get the club moving across and behind the body in this cross-handed position, so it teaches the correct arm structure almost automatically.</div>
+    </div>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Club-on-Shoulder Top-of-Backswing Drill</h3>
+        <span class="drill-tag">Top Position</span>
+      </div>
+      <ol>
+        <li>Take your grip, then rest the club across the front of your shoulders.</li>
+        <li>Set your posture, then make a big turn while pushing your arms away from your body.</li>
+        <li>Note where your arms sit in front of you — wide and away, not wrapped around the body. That's the top-of-backswing position to match.</li>
+        <li>Return to your normal grip and try to recreate that exact same width and arm position at the top.</li>
+      </ol>
+      <div class="feel"><span>The feel</span> — everything stays short and wide in front of you at the top, rather than wrapped around behind your body.</div>
+    </div>
+  </section>
+
+  <!-- ERROR CHECKLIST -->
+  <section id="checklist">
+    <span class="section-label">06 — Self-Diagnosis</span>
+    <h2>Error Detection System</h2>
+    <p class="section-intro">Work through this in order, every time you're fixing a bad shot. Don't skip to the downswing until the backswing checks out.</p>
+
+    <ul class="checklist">
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Is the club wide on the first move?</strong><span>Club stays outside the hands, not pulled in immediately.</span></div>
+      </li>
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Is the club "online" at the top — not across the line?</strong><span>Check the shaft against a plane line, not just how it feels.</span></div>
+      </li>
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Is the face square at the top, given your grip?</strong><span>Face position should match your grip and wrist structure — not fight it.</span></div>
+      </li>
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Only after 1–3 check out: adjust the downswing shape.</strong><span>If the backswing is correct and the ball still curves, then — and only then — work on path/face manipulation in the downswing (e.g., "feel more of a cut").</span></div>
+      </li>
+    </ul>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"I want you making changes based off what the ball's doing, not based off how you feel... Check the back swing position before you start working into the downswing."</p>
+    </div>
+  </section>
+
+  <!-- PRE-SHOT ROUTINE -->
+  <section id="preshot">
+    <span class="section-label">07 — On-Course</span>
+    <h2>5-Step Pre-Shot Routine</h2>
+    <p class="section-intro">Golf is unique — you get to rehearse the shot before you hit it. Use that. The goal is to fill your mind with what you want to happen, not what you're trying to avoid.</p>
+
+    <div class="routine">
+      <div class="routine-step">
+        <span class="stepnum">1</span>
+        <div><h4>Decide</h4><p>Pick the exact shot — yardage, shape, and target line — before anything else.</p></div>
+      </div>
+      <div class="routine-step">
+        <span class="stepnum">2</span>
+        <div><h4>Visualize</h4><p>Stand behind the ball, lock your eyes on the target, and breathe: in through the nose for 4 seconds, hold for 1, out through the mouth for 4 — all while staring at the target.</p></div>
+      </div>
+      <div class="routine-step">
+        <span class="stepnum">3</span>
+        <div><h4>Feel</h4><p>Translate the number into a feeling, not a mechanical thought. ("105 yards feels like a 10 o'clock swing.") Avoid stacking technical swing thoughts here.</p></div>
+      </div>
+      <div class="routine-step">
+        <span class="stepnum">4</span>
+        <div><h4>Commit</h4><p>Step in and execute with zero new thoughts — you're repeating what you already rehearsed in steps 1–3, not solving anything new in the moment.</p></div>
+      </div>
+      <div class="routine-step">
+        <span class="stepnum">5</span>
+        <div><h4>Post-Shot Routine</h4><p>Every shot goes in one of two buckets: <strong style="color:var(--parchment);">gain confidence</strong> from a good one (imprint how it felt), or <strong style="color:var(--parchment);">learn something</strong> from a bad one (growth mindset — what will you do differently next time).</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brandmark">Smash Factor Golf Performance</div>
+    <p>Body-Swing Connection Coaching — Charleston, SC</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
