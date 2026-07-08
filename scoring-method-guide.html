@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Scoring Method — 10 Rules to Break Your Next Milestone | Smash Factor Golf Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #071210;
+    --studio-dark: #1a3222;
+    --performance-green: #2d6a4f;
+    --champagne-gold: #c9a84c;
+    --deep-gold: #8a6820;
+    --parchment: #f5f0e8;
+    --parchment-dim: #e8e0d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep-forest);
+    color: var(--parchment);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(45,106,79,0.25), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(201,168,76,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* ---------- HERO ---------- */
+  .hero { padding: 90px 0 60px; border-bottom: 1px solid rgba(201,168,76,0.25); }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--champagne-gold); }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5.5vw, 54px);
+    line-height: 1.12;
+    color: var(--parchment);
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+  h1 em { font-style: normal; color: var(--champagne-gold); }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(19px, 2.4vw, 23px);
+    color: var(--parchment-dim);
+    max-width: 62ch;
+    font-weight: 500;
+  }
+  .hero-meta {
+    margin-top: 34px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span { color: var(--champagne-gold); }
+
+  /* ---------- SECTION SCAFFOLDING ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid rgba(245,240,232,0.08); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    background: rgba(45,106,79,0.15);
+    border: 1px solid rgba(45,106,79,0.4);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.4vw, 30px);
+    color: var(--parchment);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--parchment-dim);
+    max-width: 68ch;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  p { color: rgba(245,240,232,0.85); }
+
+  /* ---------- TOC ---------- */
+  .toc { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  .toc a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--parchment-dim);
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.2);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+  }
+  .toc a:hover { border-color: var(--champagne-gold); color: var(--champagne-gold); }
+
+  /* ---------- RULE CARDS ---------- */
+  .rules {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 10px;
+  }
+  .rule {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 22px;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .rule:last-child { border-bottom: none; }
+  .rule-num {
+    font-family: 'Cinzel', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--champagne-gold);
+    opacity: 0.5;
+    line-height: 1;
+  }
+  .rule h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--parchment);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+  .rule .maxim {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--champagne-gold);
+    margin-bottom: 12px;
+  }
+  .rule p.desc { font-size: 15px; color: rgba(245,240,232,0.8); max-width: 60ch; }
+
+  /* ---------- GEAR LADDER ---------- */
+  .gear-ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .gear-rung {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 18px;
+    background: var(--studio-dark);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 14px 20px;
+  }
+  .gear-rung .gnum {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+  }
+  .gear-rung .gdesc { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--parchment); }
+  .gear-rung .gdesc strong { color: var(--champagne-gold); font-family: 'DM Mono', monospace; font-size: 14px; }
+
+  /* ---------- ZONE DIAGRAM (nested rings, simple css) ---------- */
+  .zones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .zone-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 90px;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed rgba(245,240,232,0.12);
+  }
+  .zone-row:last-child { border-bottom: none; }
+  .zone-row .zlabel { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--champagne-gold); letter-spacing: 0.05em; }
+  .zone-row .zbar { height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--performance-green), var(--champagne-gold)); }
+  .zone-row .zval { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--parchment-dim); text-align: right; }
+
+  /* ---------- QUOTE BLOCK ---------- */
+  .coach-note {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin: 28px 0;
+  }
+  .coach-note .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .coach-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--parchment);
+    line-height: 1.5;
+  }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist { list-style: none; margin-top: 22px; }
+  .checklist li { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(245,240,232,0.08); }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .chk { flex-shrink: 0; width: 24px; height: 24px; border: 1.5px solid var(--champagne-gold); border-radius: 4px; margin-top: 2px; }
+  .checklist .txt strong { color: var(--parchment); display: block; margin-bottom: 2px; font-size: 15.5px; }
+  .checklist .txt span { color: rgba(245,240,232,0.65); font-size: 14px; }
+
+  /* ---------- TRAINING GAMES ---------- */
+  .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  @media (max-width: 640px) { .game-grid { grid-template-columns: 1fr; } }
+  .game-card {
+    background: rgba(26,50,34,0.5);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--performance-green);
+    padding: 22px 24px;
+    border-radius: 4px;
+  }
+  .game-card .num {
+    font-family: 'DM Mono', monospace;
+    color: var(--champagne-gold);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .game-card h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+  .game-card p { font-size: 14.5px; color: rgba(245,240,232,0.78); }
+  .game-card .why { margin-top: 10px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15.5px; color: var(--champagne-gold); }
+
+  /* ---------- DRILL ---------- */
+  .drill {
+    background: rgba(26,50,34,0.4);
+    border: 1px solid rgba(245,240,232,0.12);
+    border-radius: 6px;
+    padding: 26px 28px;
+    margin-top: 24px;
+  }
+  .drill-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+  .drill h3 { font-family: 'Cinzel', serif; font-weight: 600; font-size: 18px; color: var(--champagne-gold); letter-spacing: 0.01em; }
+  .drill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    border: 1px solid var(--performance-green);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .drill ol, .drill ul { padding-left: 20px; margin-top: 10px; }
+  .drill li { margin-bottom: 6px; color: rgba(245,240,232,0.85); font-size: 15px; }
+  .drill .feel {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(245,240,232,0.15);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--parchment-dim);
+  }
+  .drill .feel span { color: var(--champagne-gold); font-style: normal; font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ---------- SCORECARD SAMPLE ---------- */
+  .scorecard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14.5px;
+  }
+  .scorecard-table th {
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--champagne-gold);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--champagne-gold);
+  }
+  .scorecard-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+    color: rgba(245,240,232,0.88);
+  }
+  .scorecard-table tr:last-child td { border-bottom: none; }
+  .checkmark { color: var(--performance-green); font-weight: 700; }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 40px 0 60px; text-align: center; }
+  .brandmark {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: var(--champagne-gold);
+    margin-bottom: 6px;
+  }
+  footer p { font-size: 12.5px; color: rgba(245,240,232,0.4); font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Smash Factor Golf Performance — Player Reference</div>
+    <h1>The Scoring Method: <em>10 Rules</em> to Break Your Next Milestone</h1>
+    <p class="hero-sub">Golf swing gets all the attention on the range — but score is won or lost by decision-making, tension management, and knowing where you're allowed to be aggressive. This is the on-course framework that's helped players drop 30+ strokes without a swing change.</p>
+    <div class="hero-meta">
+      <div>Core idea: <span>Swing to score, not score to swing</span></div>
+      <div>Method: <span>Scoring zone + checkmark system</span></div>
+      <div>Applies to: <span>Every handicap level</span></div>
+    </div>
+    <div class="toc">
+      <a href="#zones">Scoring Zones</a>
+      <a href="#gears">Gears of Golf</a>
+      <a href="#checkmark">Checkmark System</a>
+      <a href="#rules">10 Rules</a>
+      <a href="#games">Training Games</a>
+      <a href="#dial">Purposeful Practice</a>
+    </div>
+  </div>
+
+  <!-- CORE CONCEPT -->
+  <section id="zones">
+    <span class="section-label">01 — The Core Shift</span>
+    <h2>Swing to Score, Not Score to Swing</h2>
+    <p class="section-intro">Most instruction is swing-technical. This method flips the question: not "can I get on the green in regulation," but "can I get into position to score, then get down in three or less from there."</p>
+
+    <p>The scoring zone isn't the green — it's <strong style="color:var(--champagne-gold);">inside 100 yards</strong>. Tour players hit greens in regulation roughly 71% of the time, and they're doing it with a 9-iron or less into most greens. An amateur facing a 200-yard approach with a hybrid isn't "supposed to" hit that green — the target is simply getting into the scoring zone in regulation, then getting down in three.</p>
+
+    <div class="zones">
+      <div class="zone-row">
+        <div class="zlabel">Level 1</div>
+        <div class="zbar"></div>
+        <div class="zval">Inside 100</div>
+      </div>
+      <div class="zone-row">
+        <div class="zlabel">Level 2</div>
+        <div class="zbar" style="width:75%"></div>
+        <div class="zval">Inside 50</div>
+      </div>
+      <div class="zone-row">
+        <div class="zlabel">Level 3</div>
+        <div class="zbar" style="width:50%"></div>
+        <div class="zval">Inside 25</div>
+      </div>
+      <div class="zone-row">
+        <div class="zlabel">Level 4</div>
+        <div class="zbar" style="width:25%"></div>
+        <div class="zval">On the green</div>
+      </div>
+    </div>
+
+    <p style="margin-top:18px; font-size:14.5px; color:rgba(245,240,232,0.65);">As a player improves, the "get down in three" target tightens to "get down in two," and the scoring-zone distance shrinks — the system scales with skill instead of demanding perfection early.</p>
+  </section>
+
+  <!-- GEARS -->
+  <section id="gears">
+    <span class="section-label">02 — Club Selection Philosophy</span>
+    <h2>The Gears of Golf</h2>
+    <p class="section-intro">Not every tee shot calls for driver. Think of club selection like gears in a car — most amateurs live in fourth gear on holes that call for first or second.</p>
+
+    <div class="gear-ladder">
+      <div class="gear-rung"><span class="gnum">1st Gear</span><span class="gdesc"><strong>Long iron / hybrid</strong> — put it in play, zero risk, just advance the ball.</span></div>
+      <div class="gear-rung"><span class="gnum">2nd Gear</span><span class="gdesc"><strong>5-wood</strong> — more distance, still controlled.</span></div>
+      <div class="gear-rung"><span class="gnum">3rd Gear</span><span class="gdesc"><strong>3-wood</strong> — near-full commitment with a safety margin.</span></div>
+      <div class="gear-rung"><span class="gnum">4th Gear</span><span class="gdesc"><strong>Driver</strong> — full send, reserved for holes with width and low consequence for a miss.</span></div>
+    </div>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"I still feel like I'm in the parking lot. I don't need to be going in fourth gear at 85 mph crashing into cars."</p>
+    </div>
+
+    <p style="margin-top:10px;">Rule of thumb for gear selection: on stroke-index-one type holes (the hardest hole on the course), or any hole with trouble on both sides and no reward for the aggressive line, drop down a gear. Save 4th gear for the reachable par 5s and the wide-open tee shots — the holes stroke index 13–17, where a mistake doesn't blow up the round.</p>
+  </section>
+
+  <!-- CHECKMARK SYSTEM -->
+  <section id="checkmark">
+    <span class="section-label">03 — Scoring System</span>
+    <h2>The Checkmark System</h2>
+    <p class="section-intro">Replace the number on the scorecard with two simple pass/fail questions per hole. This removes the anxiety of watching a running score climb and keeps focus purely on process.</p>
+
+    <ul class="checklist">
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Question 1 — Did you get into the scoring zone in regulation?</strong><span>For a par 4, that means inside 100 yards in 2 shots or fewer. Check or no check — nothing else matters yet.</span></div>
+      </li>
+      <li>
+        <div class="chk"></div>
+        <div class="txt"><strong>Question 2 — Did you get down in 3 shots or less from there?</strong><span>Chip/pitch + 2 putts, or 3 putts from just off the green — either way, check.</span></div>
+      </li>
+    </ul>
+
+    <p style="margin-top:18px;">Two checks on every hole of a par-4 course produces bogey golf — and bogey golf on every hole is well under 80. The rounds that blow up aren't lost to bogeys; they're lost to doubles and triples. Removing those is the single highest-leverage thing a player can do, at any handicap.</p>
+
+    <table class="scorecard-table">
+      <thead><tr><th>Hole</th><th>Shots to Zone</th><th>Q1</th><th>Shots to Hole Out</th><th>Q2</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Par 4</td><td>2</td><td class="checkmark">✓</td><td>2 (chip + putt)</td><td class="checkmark">✓</td><td>Par</td></tr>
+        <tr><td>Par 4</td><td>2</td><td class="checkmark">✓</td><td>3 (chip + 2 putts)</td><td class="checkmark">✓</td><td>Bogey</td></tr>
+        <tr><td>Par 5</td><td>3</td><td class="checkmark">✓</td><td>2 (up-and-down)</td><td class="checkmark">✓</td><td>Bogey</td></tr>
+      </tbody>
+    </table>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"I don't care about 12 greens. Where were the other six? A house, someone's swimming pool, the ocean, the tree — it's where our misses are."</p>
+    </div>
+  </section>
+
+  <!-- 10 RULES -->
+  <section id="rules">
+    <span class="section-label">04 — The Framework</span>
+    <h2>10 Rules to Break Your Next Milestone</h2>
+    <p class="section-intro">Use these as an on-course checklist, in order — the early rules set the strategy, the later rules govern the mindset needed to execute it under pressure.</p>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-num">01</div>
+        <div>
+          <h3>Don't Start Aggressive</h3>
+          <p class="maxim">Rome wasn't built in one day. Stack small wins, build momentum.</p>
+          <p class="desc">The first few holes are where rounds get destroyed. Play conservatively early, especially before the swing and body are warmed up, and save aggressive play for later in the round once confidence and rhythm are established.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">02</div>
+        <div>
+          <h3>Don't Be Like Everyone Else</h3>
+          <p class="maxim">The best path is rarely the most popular one.</p>
+          <p class="desc">Club selection should match what a player can currently execute — not what "everyone hits" off a given tee. Playing a 5-iron off the tee to stay in play is often the smarter decision than reaching for driver just because the hole "calls for it."</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">03</div>
+        <div>
+          <h3>Take Away the Score</h3>
+          <p class="maxim">Be addicted to the process, not the outcome.</p>
+          <p class="desc">Stop tracking the running number. Focus only on the two checkmark questions per hole — position to score, then down in three. Removing the score removes the anxiety that builds hole over hole.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">04</div>
+        <div>
+          <h3>Be Present</h3>
+          <p class="maxim">Cherish every moment — you never know what's coming.</p>
+          <p class="desc">Worrying about a future score doesn't help the shot in front of you. Stay with the shot that's actually being played, not the total at the end of the round.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">05</div>
+        <div>
+          <h3>Lag Putting Is Everything</h3>
+          <p class="maxim">You're nothing without speed control.</p>
+          <p class="desc">Great lag putting covers up nearly every other mistake in the round — a blocked chip, a chunked pitch, a mis-clubbed approach. Speed control from 30–50 feet is one of the highest-leverage skills to train.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">06</div>
+        <div>
+          <h3>Do Hard Stuff — Start Before You're Ready</h3>
+          <p class="maxim">You never feel fully ready. Start anyway.</p>
+          <p class="desc">Don't wait for the game to be "together" before playing tournaments or pressure rounds. Get into competitive reps immediately — that's how tension tolerance and course-management instincts actually get built.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">07</div>
+        <div>
+          <h3>Train Hard, Play Easy</h3>
+          <p class="maxim">As Gary Player said: the more I practice, the luckier I get.</p>
+          <p class="desc">Make practice harder than the golf course — pressure putts, tough lies, worst-ball games. Then on the course, take the easy, conservative option every time. When training is harder than playing, the course starts to feel simple.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">08</div>
+        <div>
+          <h3>Don't Be a Hero</h3>
+          <p class="maxim">You can't win a hole with one shot, but you can definitely lose it.</p>
+          <p class="desc">The heroic recovery shot is rarely worth the risk. Take the shot that keeps a double or triple off the card, even if it means giving up on the miracle par.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">09</div>
+        <div>
+          <h3>Fully Commit</h3>
+          <p class="maxim">A 10-out-of-10 commitment, every time.</p>
+          <p class="desc">Once the shot and target are picked, there's no more decision-making — just trust and execution. A shot that's fully committed to and mis-hit is data. A shot that's second-guessed mid-swing is neither a fair test of technique nor of decision-making.</p>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="rule-num">10</div>
+        <div>
+          <h3>Practice Makes Permanence</h3>
+          <p class="maxim">Repetition builds identity. You fall to the level of your habits.</p>
+          <p class="desc">Practice under the same pressure and routine used on the course — not stress-free reps. What's rehearsed under artificial pressure on the practice green is what shows up on the 18th hole.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINING GAMES -->
+  <section id="games">
+    <span class="section-label">05 — On-Course Training</span>
+    <h2>Two Games to Play Once a Week</h2>
+    <p class="section-intro">These two formats build the two skills the scoring method depends on most: discipline under a harder-than-normal constraint, and the ability to go low when conditions are in your favor.</p>
+
+    <div class="game-grid">
+      <div class="game-card">
+        <span class="num">Game 01</span>
+        <h3>Worst-Ball Golf</h3>
+        <p>Hit two balls on every shot, and always play the worse of the two. Forces full commitment on every single swing, since a mis-hit means playing from the worse position — no bailing out on a bad decision.</p>
+        <p class="why">Builds: discipline, commitment, conservative shot selection.</p>
+      </div>
+      <div class="game-card">
+        <span class="num">Game 02</span>
+        <h3>Play It Forward</h3>
+        <p>Play from the forward tees (or reds) and try to shoot as low as possible — driving greens on short par 4s, hitting par 5s in two, attacking flags with wedges.</p>
+        <p class="why">Builds: comfort making birdies, confidence attacking targets, aggressive-mode reps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PURPOSEFUL PRACTICE -->
+  <section id="dial">
+    <span class="section-label">06 — Homework From the Round</span>
+    <h2>The Purposeful Practice Card</h2>
+    <p class="section-intro">Instead of guessing what to work on, let the round tell you. Every miss becomes a specific, counted repetition — not a vague "work on your swing" note.</p>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>Build the Card After Every Round</h3>
+        <span class="drill-tag">Post-Round Routine</span>
+      </div>
+      <ol>
+        <li>Count every 3-putt from the round. That's the number of 3-putt drill reps owed before the next round.</li>
+        <li>Count every missed putt inside 4 feet. That's the number of reps for the 4-foot test.</li>
+        <li>Count every hole not in the scoring zone in regulation. That becomes the number of reps of the "go-to club" drill (the reliable, repeatable tee shot).</li>
+        <li>Count every missed up-and-down. That becomes the number of chip-and-putt reps owed.</li>
+      </ol>
+      <div class="feel"><span>Why it works</span> — the training plan is built directly from what actually happened on the course, not from a generic range session. Over time, most of the "work" shifts away from full-swing technique and toward putting, chipping, and decision-making — because that's usually where the strokes are actually being lost.</div>
+    </div>
+
+    <div class="drill">
+      <div class="drill-head">
+        <h3>The 3-Foot Ladder Drill</h3>
+        <span class="drill-tag">Pressure Putting</span>
+      </div>
+      <ol>
+        <li>Place five tees in a circle around the hole, each at 3 feet.</li>
+        <li>Putt from all five in sequence, going around the circle — the goal is 10 makes in a row (two full laps) before moving on.</li>
+        <li>Use the exact pre-shot routine that gets used on the course — same pace, same read process, same commitment.</li>
+        <li>Once 10 in a row is consistent at 3 feet, move the tees back to 3.5 feet, then 4, then 4.5, then 5 — always requiring 10 in a row before advancing.</li>
+        <li>Set a target score for the next session (e.g., today made 8 of 10 — next session's target is 9).</li>
+      </ol>
+      <div class="feel"><span>The feel</span> — this should feel uncomfortable, not easy. A putt that "means something" every time it's hit is what builds the emotional muscle needed to make a 3-footer on the 18th hole with something on the line.</div>
+    </div>
+
+    <div class="coach-note">
+      <span class="label">Coach's note</span>
+      <p>"If I told you for the next 10 days you made 10 in a row from 3 feet, would you question your putting on the course? Your competency level's risen, and so your confidence rises."</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brandmark">Smash Factor Golf Performance</div>
+    <p>Body-Swing Connection Coaching — Charleston, SC</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
