@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resource Library | Smash Factor Golf Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #071210;
+    --studio-dark: #1a3222;
+    --performance-green: #2d6a4f;
+    --champagne-gold: #c9a84c;
+    --deep-gold: #8a6820;
+    --parchment: #f5f0e8;
+    --parchment-dim: #e8e0d0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--deep-forest);
+    color: var(--parchment);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(45,106,79,0.25), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 20%, rgba(201,168,76,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  .hero { padding: 80px 0 50px; border-bottom: 1px solid rgba(201,168,76,0.25); }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--champagne-gold); }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(32px, 5.5vw, 50px);
+    line-height: 1.12;
+    color: var(--parchment);
+    margin-bottom: 16px;
+  }
+  h1 em { font-style: normal; color: var(--champagne-gold); }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 21px);
+    color: var(--parchment-dim);
+    max-width: 62ch;
+    font-weight: 500;
+  }
+
+  section { padding: 50px 0; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--performance-green);
+    background: rgba(45,106,79,0.15);
+    border: 1px solid rgba(45,106,79,0.4);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  .cards { display: flex; flex-direction: column; gap: 16px; }
+
+  .card {
+    display: block;
+    text-decoration: none;
+    background: rgba(26,50,34,0.5);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--performance-green);
+    border-radius: 4px;
+    padding: 26px 28px;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  }
+  .card:hover {
+    border-color: var(--champagne-gold);
+    background: rgba(26,50,34,0.75);
+    transform: translateX(2px);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--parchment);
+    letter-spacing: 0.01em;
+  }
+  .card .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--champagne-gold);
+    border: 1px solid var(--champagne-gold);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .card p {
+    font-size: 14.5px;
+    color: rgba(245,240,232,0.78);
+    max-width: 68ch;
+  }
+  .card .go {
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--performance-green);
+    letter-spacing: 0.04em;
+  }
+
+  .empty-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(245,240,232,0.5);
+    margin-top: 20px;
+  }
+
+  footer { padding: 40px 0 60px; text-align: center; border-top: 1px solid rgba(245,240,232,0.08); }
+  .brandmark {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: var(--champagne-gold);
+    margin-bottom: 6px;
+  }
+  footer p { font-size: 12.5px; color: rgba(245,240,232,0.4); font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Smash Factor Golf Performance</div>
+    <h1>Resource <em>Library</em></h1>
+    <p class="hero-sub">Coaching references, drill guides, and study material — everything in one place. Share this page directly with a client instead of an individual file link.</p>
+  </div>
+
+  <section>
+    <span class="section-label">Swing & Technique</span>
+    <div class="cards">
+      <a class="card" href="./backswing-sequencing-guide.html">
+        <div class="card-top">
+          <h3>Wide & Online: Backswing Sequencing</h3>
+          <span class="tag">Full Swing</span>
+        </div>
+        <p>Diagnosing push/hook/pull ball flight, the stretch cycle, three width-and-arm-structure drills, and an error-detection checklist for fixing an inside, shut backswing.</p>
+        <div class="go">Open guide →</div>
+      </a>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <span class="section-label">Course Management & Mindset</span>
+    <div class="cards">
+      <a class="card" href="./scoring-method-guide.html">
+        <div class="card-top">
+          <h3>The Scoring Method: 10 Rules</h3>
+          <span class="tag">On-Course Strategy</span>
+        </div>
+        <p>The scoring-zone concept, club-selection "gears," the checkmark scoring system, all 10 rules, and two weekly training games for building course-management discipline.</p>
+        <div class="go">Open guide →</div>
+      </a>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <span class="section-label">Coming Soon</span>
+    <p class="empty-note">New guides get added here as they're built — short game, putting, and mobility resources are next.</p>
+  </section>
+
+  <footer>
+    <div class="brandmark">Smash Factor Golf Performance</div>
+    <p>Body-Swing Connection Coaching — Charleston, SC</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
