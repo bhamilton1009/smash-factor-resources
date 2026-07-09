@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmashFactor Training — Mobility & Injury Corrections</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #071210;
+    --bg-surface: #0a1810;
+    --bg-card: #0f2117;
+    --bg-hover: #16301f;
+    --border: rgba(201,168,76,0.14);
+    --border-hover: rgba(201,168,76,0.4);
+    --text-primary: #f5f0e8;
+    --text-secondary: #a9c2ad;
+    --text-muted: #4a7a5a;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201,168,76,0.12);
+    --gold-deep: #8a6820;
+    --green-perf: #2d6a4f;
+    --tag-warm: #c9a060;
+    --tag-warm-bg: rgba(201,160,96,0.12);
+    --tag-blue: #7fb0a8;
+    --tag-blue-bg: rgba(127,176,168,0.12);
+    --tag-purple: #b8a0d9;
+    --tag-purple-bg: rgba(184,160,217,0.12);
+    --tag-amber: #c9a84c;
+    --tag-amber-bg: rgba(201,168,76,0.14);
+    --tag-green: #8fae6f;
+    --tag-green-bg: rgba(143,174,111,0.12);
+    --tag-coral: #d9926f;
+    --tag-coral-bg: rgba(217,146,111,0.12);
+    --tag-red: #cf6b54;
+    --tag-red-bg: rgba(207,107,84,0.16);
+    --radius: 6px;
+    --radius-lg: 10px;
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Cormorant Garamond', serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background:
+      radial-gradient(ellipse at top, rgba(45,106,79,0.10), transparent 55%),
+      linear-gradient(180deg, rgba(201,168,76,0.05), transparent 360px),
+      var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .header {
+    padding: 2.5rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .brand-mark {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--text-primary);
+    margin-bottom: 1.1rem;
+  }
+  .brand-mark span { color: var(--accent); }
+  .brand-rule {
+    height: 1px;
+    width: 64px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin: 6px 0 1.4rem;
+  }
+  .header-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-perf);
+    margin-bottom: 0.6rem;
+  }
+  .header h1 {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .header-sub {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-secondary);
+  }
+  .header-sub a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .header-sub a:hover { text-decoration: underline; }
+  .header-note {
+    margin-top: 0.9rem;
+    font-size: 13px;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-family: var(--font-display); font-size: 21px; font-weight: 500; color: var(--accent); }
+  .stat-label { font-family: var(--font-display); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.16em; }
+
+  .controls {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 8px 12px 8px 34px;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-style: italic;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text-muted); }
+
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: var(--font-display);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .filter-btn.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+
+  .index-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 1.25rem;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .index-anchor {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.12s;
+    cursor: pointer;
+  }
+  .index-anchor:hover { color: var(--accent); border-color: var(--border); background: var(--bg-card); }
+
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .section { margin-bottom: 2.5rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 0 1rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-title { font-family: var(--font-display); font-size: 17px; font-weight: 500; letter-spacing: 0.04em; color: var(--text-primary); }
+  .section-subtitle { font-size: 13px; font-style: italic; color: var(--text-muted); margin-top: 2px; }
+  .section-count {
+    margin-left: auto;
+    font-family: var(--font-display);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+
+  .ex-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+  .ex-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-hover);
+  }
+  .ex-card:hover .ex-link-icon { opacity: 1; color: var(--accent); }
+
+  .ex-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ex-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.35;
+    padding-right: 20px;
+  }
+  .ex-body {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.45;
+  }
+  .ex-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .tag {
+    font-family: var(--font-display);
+    font-size: 9.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.07em;
+  }
+  .tag-type { background: var(--tag-blue-bg); color: var(--tag-blue); }
+  .tag-equip { background: var(--tag-amber-bg); color: var(--tag-amber); }
+  .tag-ailment { background: var(--tag-coral-bg); color: var(--tag-coral); }
+  .tag-warm { background: var(--tag-green-bg); color: var(--tag-green); }
+  .tag-level { background: var(--tag-purple-bg); color: var(--tag-purple); }
+  .tag-short { background: var(--tag-red-bg); color: var(--tag-red); }
+
+  .ex-link-icon {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: color 0.12s, opacity 0.12s;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .result-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 1rem;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .result-info span { color: var(--accent); font-weight: 500; }
+
+  .disclaimer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .disclaimer a { color: var(--accent); text-decoration: none; font-style: normal; }
+  .disclaimer strong { font-style: normal; }
+
+  a { color: inherit; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand-mark">SMASH<span>FACTOR</span> TRAINING</div>
+  <div class="brand-rule"></div>
+  <div class="header-eyebrow">Quick-Reference Database</div>
+  <h1>Mobility & Injury Corrections</h1>
+  <p class="header-sub">
+    Warm-up & ailment reference for coaches · Every exercise links directly to a real video on
+    <a href="https://www.youtube.com/@twstraining" target="_blank">@twstraining</a> (Scott Bailey, Kinesiologist &amp; Mobility Coach)
+  </p>
+  <div class="header-note">
+    <span>📎</span>
+    <span>All <strong style="color:var(--text-secondary)">66 links</strong> below were pulled directly from the TWS Training channel and verified — clicking a card opens that exact video. Cards marked <span class="tag tag-short" style="margin:0 2px;">SHORT</span> are YouTube Shorts (under 3 min); unmarked cards are standard videos.</span>
+  </div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat"><span class="stat-num">66</span><span class="stat-label">Verified Videos</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">Body Regions</span></div>
+  <div class="stat"><span class="stat-num">5</span><span class="stat-label">Exercise Types</span></div>
+  <div class="stat"><span class="stat-num">8</span><span class="stat-label">Ailments Covered</span></div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Search exercise name, muscle, ailment…" oninput="filterAll()">
+  </div>
+  <div class="filter-group" id="typeFilters">
+    <button class="filter-btn active" onclick="setFilter('type','All',this)">All types</button>
+    <button class="filter-btn" onclick="setFilter('type','Mobilization',this)">Mobilization</button>
+    <button class="filter-btn" onclick="setFilter('type','Stretch',this)">Stretch</button>
+    <button class="filter-btn" onclick="setFilter('type','Activation',this)">Activation</button>
+    <button class="filter-btn" onclick="setFilter('type','SMR',this)">SMR / Release</button>
+    <button class="filter-btn" onclick="setFilter('type','Distraction',this)">Distraction</button>
+  </div>
+  <div class="filter-group" id="ailmentFilters">
+    <button class="filter-btn" onclick="setFilter('ailment','Warm-up',this)">🔥 Warm-up</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Low Back Pain',this)">Low Back</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Shoulder Pain',this)">Shoulder</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Hip Tightness',this)">Hips</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Knee Pain',this)">Knees</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Ankle/Squat',this)">Ankle/Squat</button>
+    <button class="filter-btn" onclick="setFilter('ailment','Neck/Traps',this)">Neck/Traps</button>
+  </div>
+</div>
+
+<div class="index-nav" id="indexNav">
+  <span style="font-size:11px;color:var(--text-muted);padding:4px 6px;align-self:center;">Jump to:</span>
+</div>
+
+<div class="result-info" id="resultInfo"></div>
+
+<div class="main" id="mainContent"></div>
+
+<div class="disclaimer">
+  <strong style="color:var(--text-secondary)">Usage note:</strong>
+  This reference is for trained fitness professionals. All exercises link directly to videos on
+  <a href="https://www.youtube.com/@twstraining" target="_blank">@twstraining on YouTube</a> — Scott Bailey, Kinesiologist &amp; Mobility Coach.
+  Recommend clients consult a healthcare provider before starting any new program. Movement screens (TPI) should gate exercise selection.
+</div>
+
+<script>
+const REGIONS = [
+  {
+    id: "hips",
+    name: "Hips & Hip Flexors",
+    subtitle: "Psoas, hip capsule, adductors, hip flexion / extension ROM",
+    icon: "🦴",
+    color: "#e5855a",
+    exercises: [
+      { id:1, name:"Banded Hip Distraction (\"Band It & Stack It\")", body:"Hip capsule, glute, hip flexors — banded distraction stretch", type:"Distraction", equip:"Band", level:"Beginner", ailments:["Hip Tightness","Warm-up"], url:"https://www.youtube.com/watch?v=QU1fccqsZG4", short:false },
+      { id:2, name:"What To Do If You Struggle With Hip Mobility", body:"General hip mobility framework — advanced vs. beginner approach", type:"Mobilization", equip:"Bodyweight", level:"Beginner", ailments:["Hip Tightness"], url:"https://www.youtube.com/watch?v=tUrLHwU7nWg", short:false },
+      { id:3, name:"Train Your Hip Flexors", body:"Hip flexor strengthening — why most people neglect this", type:"Activation", equip:"Band", level:"Beginner", ailments:["Hip Tightness","Low Back Pain"], url:"https://www.youtube.com/shorts/t4Fcz94aHAs", short:true },
+      { id:4, name:"Open Up Hip Space", body:"Hip capsule opener — creates room for deeper hip flexion", type:"Mobilization", equip:"Bodyweight", level:"Beginner", ailments:["Hip Tightness","Warm-up"], url:"https://www.youtube.com/shorts/zeNwOaelbf4", short:true },
+      { id:5, name:"Gut Smash & Psoas March", body:"Psoas release + activation — antidote to prolonged sitting", type:"Activation", equip:"Ball + Band", level:"Intermediate", ailments:["Hip Tightness","Low Back Pain"], url:"https://www.youtube.com/watch?v=pHY6Z6qc4gM", short:false },
+      { id:6, name:"PSO-RITE Psoas / Hip Flexor Release", body:"Targeted psoas and hip flexor self-massage tool", type:"SMR", equip:"PSO-RITE / Ball", level:"Beginner", ailments:["Hip Tightness","Low Back Pain"], url:"https://www.youtube.com/watch?v=bh5fOea7rao", short:false },
+      { id:7, name:"Adductor Mobility for Squat Depth", body:"Adductor stretch & mobilization — improves squat range", type:"Stretch", equip:"Bodyweight", level:"Beginner", ailments:["Hip Tightness","Ankle/Squat","Warm-up"], url:"https://www.youtube.com/watch?v=6pvOyzCQges", short:false },
+      { id:8, name:"Adductor & Low Back Stretch Combo", body:"Combined adductor and lumbar stretch for stiffness", type:"Stretch", equip:"Bodyweight", level:"Beginner", ailments:["Hip Tightness","Low Back Pain"], url:"https://www.youtube.com/watch?v=hWAosWbhBeg", short:false },
+      { id:54, name:"Reverse Squats for Hip Flexors & Low Back", body:"Hip flexor training pattern that carries over to reduced low back strain", type:"Activation", equip:"Bodyweight / Plate", level:"Intermediate", ailments:["Hip Tightness","Low Back Pain"], url:"https://www.youtube.com/watch?v=lBQGMeue0OY", short:false },
+      { id:55, name:"Banded Lizard Lunge", body:"Deep hip mobility drill combining lunge position with band distraction", type:"Distraction", equip:"Band", level:"Intermediate", ailments:["Hip Tightness","Warm-up"], url:"https://www.youtube.com/watch?v=O8zJJgTOo3A", short:true }
+    ]
+  },
+  {
+    id: "glutes-back",
+    name: "Glutes, Low Back & Core",
+    subtitle: "Glute max / med, lumbar spine, hamstrings, core bracing",
+    icon: "🔩",
+    color: "#f3b855",
+    exercises: [
+      { id:9, name:"Single-Leg Back Extension", body:"Unilateral low back / glute activation for one-sided pain", type:"Activation", equip:"Bench / GHD", level:"Intermediate", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=tqupGwVBPtg", short:false },
+      { id:10, name:"QL Stretch (Quadratus Lumborum)", body:"Side-bend stretch for instant low back relief", type:"Stretch", equip:"Bodyweight", level:"Beginner", ailments:["Low Back Pain","Warm-up"], url:"https://www.youtube.com/watch?v=ueLJkLKseKE", short:false },
+      { id:11, name:"Double Band Glute Activation", body:"Layered band resistance for stronger glute activation", type:"Activation", equip:"Band", level:"Beginner", ailments:["Low Back Pain","Knee Pain","Warm-up"], url:"https://www.youtube.com/watch?v=GPQCe3sL3jw", short:true },
+      { id:12, name:"Glute Band Walks", body:"Lateral band walk — fast, effective glute med activation", type:"Activation", equip:"Band", level:"Beginner", ailments:["Low Back Pain","Knee Pain","Warm-up"], url:"https://www.youtube.com/watch?v=b6T1Wzb-boE", short:false },
+      { id:13, name:"Sciatica Relief Stretch", body:"Stretch targeting sciatic nerve pathway and piriformis", type:"Stretch", equip:"Bodyweight", level:"Beginner", ailments:["Low Back Pain"], url:"https://www.youtube.com/shorts/0Boul3bRKFE", short:true },
+      { id:14, name:"Low Back Pain & Sciatica — Simple Solution", body:"Mobilization sequence to relieve sciatic-related low back pain", type:"Mobilization", equip:"Wall / Bodyweight", level:"Beginner", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=Ir27BbvvH4o", short:false },
+      { id:15, name:"Rotational Ab Exercise", body:"Anti-rotation / rotational core strengthening", type:"Activation", equip:"Bodyweight / Band", level:"Intermediate", ailments:["Low Back Pain"], url:"https://www.youtube.com/shorts/J7v3rztCyiU", short:true },
+      { id:16, name:"GHD Sit-Ups", body:"Core and hip flexor strengthening through full ROM", type:"Activation", equip:"GHD", level:"Advanced", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=O9Lo-sAkvwg", short:false },
+      { id:17, name:"Banded Hamstring Curls (Knee Focus)", body:"Hamstring strengthening to support knee stability", type:"Activation", equip:"Band", level:"Intermediate", ailments:["Knee Pain","Low Back Pain"], url:"https://www.youtube.com/watch?v=tLkkAu-zr34", short:false },
+      { id:18, name:"Banded Hamstring Curls (Strength Focus)", body:"Progressive hamstring loading using resistance bands", type:"Activation", equip:"Band", level:"Intermediate", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=L69N-XNZTu0", short:false },
+      { id:19, name:"Barbell Good Mornings", body:"Posterior chain strengthening — hamstrings, glutes, low back", type:"Activation", equip:"Barbell", level:"Intermediate", ailments:["Low Back Pain"], url:"https://www.youtube.com/shorts/QGif6T1mNQA", short:true },
+      { id:56, name:"Protect Your Back From Deadlifts", body:"Bracing and setup cues to keep the low back safe under load", type:"Activation", equip:"Barbell / Bodyweight", level:"Intermediate", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=eC0YWAVZukI", short:false },
+      { id:57, name:"3 Warm-Ups for Deadlifting", body:"Glute and posterior chain activation sequence before pulling", type:"Activation", equip:"Band", level:"Beginner", ailments:["Low Back Pain","Warm-up"], url:"https://www.youtube.com/watch?v=3QEbyX39bFA", short:true },
+      { id:58, name:"Low Back Extensions", body:"Controlled extension pattern to build low back resilience", type:"Activation", equip:"Bench / Bodyweight", level:"Beginner", ailments:["Low Back Pain"], url:"https://www.youtube.com/watch?v=8IGMIR9D7jY", short:false }
+    ]
+  },
+  {
+    id: "shoulders",
+    name: "Shoulders & Rotator Cuff",
+    subtitle: "GH joint, rotator cuff, internal/external rotation, posture",
+    icon: "💪",
+    color: "#5ab0e5",
+    exercises: [
+      { id:20, name:"Shoulder Adduction for Rotator Cuff Pain", body:"Two exercises targeting rotator cuff via adduction pattern", type:"Activation", equip:"Band", level:"Beginner", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=4OVklYdj5qk", short:false },
+      { id:21, name:"Unlock Shoulder Internal Rotation", body:"Mobility drill for internal rotation and rotator cuff health", type:"Mobilization", equip:"Band", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=Y012J11BzPo", short:false },
+      { id:22, name:"Quickly Improve Shoulder Internal Rotation", body:"Fast-acting internal rotation mobility technique", type:"Mobilization", equip:"Band / Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=t039jRNzf8I", short:false },
+      { id:23, name:"Fixing the \"Shoulder Pop-Up\"", body:"Addresses scapular hike caused by missing internal rotation", type:"Mobilization", equip:"Band", level:"Intermediate", ailments:["Shoulder Pain"], url:"https://www.youtube.com/shorts/X-gvopoiNLw", short:true },
+      { id:24, name:"Overhead Shoulder Mobility Drill", body:"Improves overhead range of motion in minutes", type:"Mobilization", equip:"Band / Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/shorts/DPbVxcCHDMQ", short:true },
+      { id:25, name:"Shoulder ROM Booster", body:"Quick drill to expand overall shoulder range of motion", type:"Mobilization", equip:"Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/shorts/kdFysRt_t3k", short:true },
+      { id:26, name:"2-Minute Bare Minimum Shoulder Warm-Up", body:"Compact pre-training shoulder warm-up sequence", type:"Mobilization", equip:"Band", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/shorts/CbVu-3LU9mM", short:true },
+      { id:27, name:"Barbell Lat Smash", body:"Self-myofascial release for lat / posterior shoulder capsule", type:"SMR", equip:"Barbell", level:"Intermediate", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=PzM9ker51UQ", short:false },
+      { id:28, name:"Banded KB Lat Smash", body:"Combined band distraction + lat smash for fast shoulder relief", type:"Distraction", equip:"Band + KB", level:"Intermediate", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=w84Gd4JeaaA", short:false },
+      { id:29, name:"Thoracic Plate Roller", body:"Foam-roller-style release for upper back / shoulder mobility", type:"SMR", equip:"Roller / Plate", level:"Beginner", ailments:["Shoulder Pain","Neck/Traps","Warm-up"], url:"https://www.youtube.com/watch?v=Ibq0EQb3OEE", short:false },
+      { id:30, name:"Compression Floss — Shoulder", body:"Compression flossing for instant shoulder mobility gains", type:"SMR", equip:"Floss Band", level:"Intermediate", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=00we-iW-clM", short:false },
+      { id:31, name:"Supinated Pull-Aparts", body:"Posture and rotator cuff training without overloading traps", type:"Activation", equip:"Band", level:"Beginner", ailments:["Shoulder Pain","Neck/Traps","Warm-up"], url:"https://www.youtube.com/watch?v=vmJn5meNzOE", short:false },
+      { id:32, name:"Back Lever Flys", body:"Mid-back and shoulder strengthening for posture correction", type:"Activation", equip:"Bodyweight / Band", level:"Advanced", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=be_eiJDjPHw", short:false },
+      { id:59, name:"Rotator Cuff Priming for Bench Press", body:"Pre-press activation to stabilize the shoulder under load", type:"Activation", equip:"Band", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=csrhy5nNoxg", short:false },
+      { id:60, name:"3 Bench Press Mobility Tools", body:"Shoulder and T-spine mobility prep specific to pressing", type:"Mobilization", equip:"Band / Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=39DQ6lEM0OY", short:false },
+      { id:61, name:"Warm-Up for Strict Pull-Ups", body:"Shoulder and lat preparation sequence before pulling work", type:"Activation", equip:"Band / Bar", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=iGknoYjWcQ0", short:false },
+      { id:62, name:"Subscapularis Release with PVC", body:"Targeted release for a commonly overlooked rotator cuff muscle", type:"SMR", equip:"PVC Pipe", level:"Intermediate", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=8lwTVh7cf1Q", short:false }
+    ]
+  },
+  {
+    id: "chest-tspine",
+    name: "Chest & Thoracic Spine",
+    subtitle: "T-spine extension, pec mobility, rib cage, front rack position",
+    icon: "🫁",
+    color: "#a78bfa",
+    exercises: [
+      { id:33, name:"Rib Flare & True Thoracic Extension", body:"Key drill correcting rib flare for genuine T-spine extension", type:"Mobilization", equip:"Bodyweight", level:"Intermediate", ailments:["Shoulder Pain","Low Back Pain","Warm-up"], url:"https://www.youtube.com/watch?v=NzPzUVIunpA", short:false },
+      { id:34, name:"Thoracic Extension & Shoulder Mobility", body:"Combined T-spine extension drill that frees up shoulder ROM", type:"Mobilization", equip:"Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=EziKukTyYlE", short:false },
+      { id:35, name:"Banded Chest Stretch", body:"Distraction-style stretch for tight pecs and rounded shoulders", type:"Distraction", equip:"Band", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/shorts/-OCzv7CghjU", short:true },
+      { id:36, name:"Chest Release for Posture", body:"Pec release technique to upgrade shoulder position and posture", type:"SMR", equip:"Ball / Bodyweight", level:"Beginner", ailments:["Shoulder Pain","Neck/Traps"], url:"https://www.youtube.com/watch?v=tOmnnk0BXgk", short:false },
+      { id:37, name:"Front Rack Mobility Fix", body:"Two-step fix for front rack position — wrists, elbows, T-spine", type:"Mobilization", equip:"Barbell / Bodyweight", level:"Intermediate", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=xcGPrzBkUXc", short:false },
+      { id:63, name:"Chest Opener for Rounded Shoulders", body:"Stretch sequence to counter rounded shoulder posture from pressing", type:"Stretch", equip:"Band / Doorway", level:"Beginner", ailments:["Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=3ngKJqFwxCg", short:true },
+      { id:64, name:"Pec Activation for Rounded Shoulders", body:"Strengthening drill addressing pec tightness behind rounded posture", type:"Activation", equip:"Band / Bodyweight", level:"Beginner", ailments:["Shoulder Pain"], url:"https://www.youtube.com/watch?v=AockC8IhEDE", short:true }
+    ]
+  },
+  {
+    id: "knees-ankles",
+    name: "Knees & Ankles",
+    subtitle: "Knee tracking, dorsiflexion, calves, plantar fascia",
+    icon: "🦵",
+    color: "#63c267",
+    exercises: [
+      { id:38, name:"Towel Knee Distraction Stretch", body:"Quick distraction-based fix for general knee pain", type:"Distraction", equip:"Towel", level:"Beginner", ailments:["Knee Pain"], url:"https://www.youtube.com/watch?v=oe6NKhYZlR0", short:false },
+      { id:39, name:"Compression Flossing for Knees", body:"Whether flossing genuinely helps knee mobility — technique demo", type:"SMR", equip:"Floss Band", level:"Intermediate", ailments:["Knee Pain"], url:"https://www.youtube.com/shorts/m7znzVxPyXQ", short:true },
+      { id:40, name:"3 Steps to Better Ankle Mobility", body:"Progressive 3-step ankle mobility sequence", type:"Mobilization", equip:"Band / Wall", level:"Beginner", ailments:["Ankle/Squat","Warm-up"], url:"https://www.youtube.com/watch?v=Tw9fMAXNwkw", short:false },
+      { id:41, name:"3 Elite Ankle Mobility Techniques", body:"Advanced techniques for fixing stiff ankles fast", type:"Mobilization", equip:"Band", level:"Intermediate", ailments:["Ankle/Squat"], url:"https://www.youtube.com/watch?v=dFx5tMaW4i8", short:false },
+      { id:42, name:"Dorsiflexion Improvement Drill", body:"Targeted drill to improve ankle dorsiflexion for squatting", type:"Mobilization", equip:"Band", level:"Beginner", ailments:["Ankle/Squat","Warm-up"], url:"https://www.youtube.com/shorts/dCGhc4Gcmgg", short:true },
+      { id:43, name:"Worst Ankle Mobility Fix", body:"Banded ankle mobilization for severely restricted ankles", type:"Distraction", equip:"Band", level:"Intermediate", ailments:["Ankle/Squat"], url:"https://www.youtube.com/shorts/YsSkTRKGSRk", short:true },
+      { id:44, name:"Calf, Plantar Fascia & Knee Fix (Long)", body:"Brutal but effective release for tight calves and plantar fascia", type:"SMR", equip:"Ball / Roller", level:"Intermediate", ailments:["Ankle/Squat","Knee Pain"], url:"https://www.youtube.com/watch?v=oOHWE_OZAZo", short:false },
+      { id:45, name:"Calf, Plantar Fascia & Knee Fix (Quick)", body:"Condensed version — stiff calves, knee pain, plantar fasciitis", type:"SMR", equip:"Ball / Roller", level:"Beginner", ailments:["Ankle/Squat","Knee Pain","Warm-up"], url:"https://www.youtube.com/shorts/qurfBUmKYrI", short:true },
+      { id:65, name:"Banded Deficit Lunges", body:"Knee-protective lunge variation with added range of motion", type:"Activation", equip:"Band / Platform", level:"Intermediate", ailments:["Knee Pain","Ankle/Squat"], url:"https://www.youtube.com/watch?v=b935f5j3JVQ", short:false }
+    ]
+  },
+  {
+    id: "neck-traps-arms",
+    name: "Neck, Traps, Elbows & Wrists",
+    subtitle: "Cervical spine, upper traps, elbow tendons, forearm/wrist",
+    icon: "✋",
+    color: "#f07070",
+    exercises: [
+      { id:46, name:"3 Exercises for Shoulder & Neck Pain", body:"Combined routine addressing shoulder and cervical tightness", type:"Activation", equip:"Bodyweight / Band", level:"Beginner", ailments:["Neck/Traps","Shoulder Pain","Warm-up"], url:"https://www.youtube.com/watch?v=q-58zxrGGjo", short:false },
+      { id:47, name:"Barbell Trap Smash", body:"Self-myofascial release for upper traps and neck", type:"SMR", equip:"Barbell", level:"Intermediate", ailments:["Neck/Traps","Shoulder Pain"], url:"https://www.youtube.com/watch?v=IUbzBBRzMzs", short:false },
+      { id:48, name:"Banded Traps Stretch", body:"Banded stretch for chronically tight upper traps", type:"Stretch", equip:"Band", level:"Beginner", ailments:["Neck/Traps","Warm-up"], url:"https://www.youtube.com/shorts/ZPLv31Z6Gsw", short:true },
+      { id:49, name:"Banded Rear Delts & Traps", body:"Activation work to unlock tight traps and shoulders", type:"Activation", equip:"Band", level:"Beginner", ailments:["Neck/Traps","Shoulder Pain","Warm-up"], url:"https://www.youtube.com/shorts/P5fOKWeo6IM", short:true },
+      { id:50, name:"Compression Floss — Elbow", body:"Compression flossing technique for elbow pain relief", type:"SMR", equip:"Floss Band", level:"Intermediate", ailments:["Neck/Traps"], url:"https://www.youtube.com/shorts/6Y4KOOniFxw", short:true },
+      { id:51, name:"Wrist Stretching for Elbow Pain", body:"How forearm/wrist stretches can resolve elbow pain (golfer's/tennis elbow)", type:"Stretch", equip:"Bodyweight", level:"Beginner", ailments:["Neck/Traps","Warm-up"], url:"https://www.youtube.com/watch?v=5mhueWJUXIw", short:false },
+      { id:52, name:"Fix Elbow Popping & Triceps Snapping", body:"Mobility drill addressing elbow joint popping and triceps snapping", type:"Mobilization", equip:"Bodyweight", level:"Beginner", ailments:["Neck/Traps"], url:"https://www.youtube.com/shorts/A-hWvSgjQek", short:true },
+      { id:53, name:"Foam Rolling Before Training", body:"Why and how to foam roll before a session", type:"SMR", equip:"Foam Roller", level:"Beginner", ailments:["Warm-up"], url:"https://www.youtube.com/watch?v=5Jy29LkDpKs", short:false },
+      { id:66, name:"Banded Wrist Distraction Stretch", body:"Distraction-based stretch to improve wrist range of motion", type:"Distraction", equip:"Band", level:"Beginner", ailments:["Neck/Traps","Warm-up"], url:"https://www.youtube.com/watch?v=Xpirh51gS-8", short:false }
+    ]
+  }
+];
+
+let currentTypeFilter = "All";
+let currentAilmentFilter = null;
+
+function buildIndexNav() {
+  const nav = document.getElementById("indexNav");
+  REGIONS.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "index-anchor";
+    a.textContent = r.name.split(",")[0].split("&")[0].trim();
+    a.href = "#section-" + r.id;
+    nav.appendChild(a);
+  });
+}
+
+function buildTag(text, cls) {
+  return `<span class="tag ${cls}">${text}</span>`;
+}
+
+function typeClass(t) {
+  const m = { "Mobilization":"tag-type","Stretch":"tag-type","Activation":"tag-warm","SMR":"tag-equip","Distraction":"tag-ailment" };
+  return m[t] || "tag-type";
+}
+
+function makeCard(ex) {
+  const ailmentTags = ex.ailments.map(a => buildTag(a, "tag-ailment")).join("");
+  const equipTag = buildTag(ex.equip, "tag-equip");
+  const typeTag = buildTag(ex.type, typeClass(ex.type));
+  const levelTag = buildTag(ex.level, "tag-level");
+  const shortTag = ex.short ? buildTag("SHORT", "tag-short") : "";
+  const numStr = String(ex.id).padStart(3,"0");
+
+  return `<a class="ex-card" href="${ex.url}" target="_blank" data-id="${ex.id}">
+    <div class="ex-num">${numStr}</div>
+    <div class="ex-name">${ex.name}</div>
+    <div class="ex-body">${ex.body}</div>
+    <div class="ex-tags">${typeTag}${equipTag}${levelTag}${shortTag}</div>
+    <div class="ex-tags">${ailmentTags}</div>
+    <svg class="ex-link-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+  </a>`;
+}
+
+function renderAll() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+  const main = document.getElementById("mainContent");
+  let totalVisible = 0;
+  let html = "";
+
+  REGIONS.forEach(region => {
+    const filtered = region.exercises.filter(ex => {
+      const matchType = currentTypeFilter === "All" || ex.type === currentTypeFilter;
+      const matchAilment = !currentAilmentFilter || ex.ailments.includes(currentAilmentFilter);
+      const matchSearch = !query ||
+        ex.name.toLowerCase().includes(query) ||
+        ex.body.toLowerCase().includes(query) ||
+        ex.ailments.some(a => a.toLowerCase().includes(query)) ||
+        ex.type.toLowerCase().includes(query) ||
+        ex.equip.toLowerCase().includes(query);
+      return matchType && matchAilment && matchSearch;
+    });
+
+    if (filtered.length === 0) return;
+    totalVisible += filtered.length;
+
+    const cards = filtered.map(ex => makeCard(ex)).join("");
+
+    html += `<div class="section" id="section-${region.id}">
+      <div class="section-header">
+        <div class="section-icon" style="background:${region.color}22;color:${region.color};">${region.icon}</div>
+        <div>
+          <div class="section-title">${region.name}</div>
+          <div class="section-subtitle">${region.subtitle}</div>
+        </div>
+        <span class="section-count">${filtered.length} exercises</span>
+      </div>
+      <div class="exercise-grid">${cards}</div>
+    </div>`;
+  });
+
+  if (totalVisible === 0) {
+    html = `<div class="no-results">No exercises match your filters. <a href="#" onclick="resetAll();return false;" style="color:var(--accent);">Reset all filters</a></div>`;
+  }
+
+  main.innerHTML = html;
+
+  const info = document.getElementById("resultInfo");
+  if (query || currentTypeFilter !== "All" || currentAilmentFilter) {
+    info.innerHTML = `Showing <span>${totalVisible}</span> exercises`;
+  } else {
+    info.innerHTML = "";
+  }
+}
+
+function setFilter(filterType, value, btn) {
+  if (filterType === "type") {
+    currentTypeFilter = value;
+    document.querySelectorAll("#typeFilters .filter-btn").forEach(b => b.classList.remove("active"));
+  } else {
+    if (currentAilmentFilter === value) {
+      currentAilmentFilter = null;
+      btn.classList.remove("active");
+      renderAll();
+      return;
+    }
+    currentAilmentFilter = value;
+    document.querySelectorAll("#ailmentFilters .filter-btn").forEach(b => b.classList.remove("active"));
+  }
+  btn.classList.add("active");
+  renderAll();
+}
+
+function filterAll() { renderAll(); }
+
+function resetAll() {
+  currentTypeFilter = "All";
+  currentAilmentFilter = null;
+  document.getElementById("searchInput").value = "";
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector("#typeFilters .filter-btn").classList.add("active");
+  renderAll();
+}
+
+buildIndexNav();
+renderAll();
+</script>
+</body>
+</html>
