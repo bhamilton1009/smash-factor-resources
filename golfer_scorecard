@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swing &amp; Body Diagnostic — Scorecard Generator | SmashFactor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep-forest:#071210;
+    --studio-dark:#1a3222;
+    --performance-green:#2d6a4f;
+    --champagne-gold:#c9a84c;
+    --deep-gold:#8a6820;
+    --parchment:#f5f0e8;
+    --parchment-line:#d8d0c0;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--parchment);
+    color:var(--deep-forest);
+    font-family:'DM Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{ max-width:960px; margin:0 auto; padding:32px 24px 80px; }
+
+  /* ===== TOP HEADER ===== */
+  .app-header{
+    background:var(--deep-forest);
+    padding:28px 36px 24px;
+    position:relative;
+    margin-bottom:28px;
+  }
+  .app-header::after{
+    content:""; position:absolute; left:36px; right:36px; bottom:0; height:1px;
+    background:linear-gradient(90deg,var(--champagne-gold),transparent 70%);
+  }
+  .eyebrow{
+    font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--champagne-gold); margin-bottom:10px;
+  }
+  .app-title{ font-family:'Cinzel',serif; font-weight:600; font-size:26px; color:var(--parchment); }
+  .app-title span{ color:var(--champagne-gold); }
+  .app-sub{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14.5px; color:#c9d4cc; margin-top:6px;
+  }
+
+  /* ===== FORM CARD ===== */
+  .card{ background:#fff; border:1px solid var(--parchment-line); margin-bottom:22px; }
+  .card-head{
+    background:var(--studio-dark); padding:12px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
+  }
+  .card-head h2{ font-family:'Cinzel',serif; font-weight:600; font-size:14px; color:var(--champagne-gold); letter-spacing:0.02em; }
+  .card-body{ padding:22px; }
+
+  .field-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media (max-width:600px){ .field-grid{ grid-template-columns:1fr; } }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field label{
+    font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--deep-gold);
+  }
+  .field input[type="text"], .field input[type="date"]{
+    font-family:'DM Sans',sans-serif; font-size:14px; color:var(--deep-forest);
+    border:1px solid var(--parchment-line); background:var(--parchment); padding:9px 11px;
+  }
+  .field input:focus{ outline:2px solid var(--performance-green); outline-offset:1px; }
+
+  /* ===== TPI SCREEN ROWS ===== */
+  .screen-row{
+    display:grid; grid-template-columns:1fr 160px; gap:14px; align-items:center;
+    padding:11px 0; border-bottom:1px solid var(--parchment-line);
+  }
+  @media (max-width:600px){ .screen-row{ grid-template-columns:1fr; gap:6px; padding-bottom:14px; } }
+  .screen-name{ font-family:'DM Sans',sans-serif; font-weight:500; font-size:13.5px; color:var(--deep-forest); }
+  .screen-select{
+    font-family:'DM Sans',sans-serif; font-size:13px; color:var(--deep-forest);
+    border:1px solid var(--parchment-line); background:var(--parchment); padding:8px 10px;
+    cursor:pointer;
+  }
+  .screen-select:focus{ outline:2px solid var(--performance-green); outline-offset:1px; }
+  .screen-select.st-pass{ border-color:var(--performance-green); background:#dce8e0; }
+  .screen-select.st-limited{ border-color:var(--deep-gold); background:#f2e4c4; }
+
+  /* ===== VISUAL UPLOAD ===== */
+  .upload-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:600px){ .upload-grid{ grid-template-columns:1fr; } }
+  .upload-box{
+    border:1.5px dashed var(--parchment-line); background:var(--parchment); padding:16px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center;
+    min-height:140px; position:relative; overflow:hidden;
+  }
+  .upload-box img{ max-width:100%; max-height:150px; object-fit:contain; }
+  .upload-box label.upload-btn{
+    font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--deep-gold); border:1px solid var(--deep-gold); padding:7px 14px; cursor:pointer; background:#fff;
+  }
+  .upload-box input[type="file"]{ display:none; }
+  .upload-caption{ font-family:'DM Mono',monospace; font-size:9.5px; color:#8a8378; }
+
+  /* ===== BUTTONS ===== */
+  .btn-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+  .btn{
+    font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:12px 24px; cursor:pointer; border:none; transition:opacity .15s ease;
+  }
+  .btn:hover{ opacity:0.88; }
+  .btn-primary{ background:var(--deep-forest); color:var(--champagne-gold); border:1px solid var(--champagne-gold); }
+  .btn-secondary{ background:transparent; color:var(--studio-dark); border:1px solid var(--parchment-line); }
+
+  /* ===== GENERATED SCORECARD (mirrors diagnostic report styling) ===== */
+  #scorecard-output{ display:none; }
+  #scorecard-output.visible{ display:block; }
+
+  .sc-header{
+    background:var(--deep-forest); padding:30px 40px 24px; position:relative;
+  }
+  .sc-header::after{
+    content:""; position:absolute; left:40px; right:40px; bottom:0; height:1px;
+    background:linear-gradient(90deg,var(--champagne-gold),transparent 70%);
+  }
+  .sc-brand{ font-family:'Cinzel',serif; font-weight:600; font-size:22px; color:var(--parchment); }
+  .sc-brand span{ color:var(--champagne-gold); }
+  .sc-tag{ font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--champagne-gold); margin-top:4px; }
+  .sc-meta{
+    margin-top:14px; display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+  }
+  @media (max-width:640px){ .sc-meta{ grid-template-columns:1fr 1fr; } }
+  .sc-meta-item{ font-family:'DM Mono',monospace; font-size:10.5px; color:#a9b8ae; }
+  .sc-meta-item strong{ display:block; color:var(--parchment); font-size:12.5px; font-weight:500; margin-top:2px; }
+
+  .sc-section{ padding:26px 40px; border-bottom:1px solid var(--parchment-line); background:#fff; }
+  .sc-section-tag{
+    font-family:'DM Mono',monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--deep-gold); margin-bottom:14px;
+  }
+  .sc-results-table{ width:100%; border-collapse:collapse; }
+  .sc-results-table td{ padding:9px 0; border-bottom:1px solid var(--parchment-line); font-size:13.5px; vertical-align:top; }
+  .sc-results-table td.name{ font-family:'DM Sans',sans-serif; font-weight:500; color:var(--deep-forest); width:32%; }
+  .sc-results-table td.status{ width:16%; }
+  .status-pill{
+    display:inline-block; font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:4px 10px;
+  }
+  .status-pill.pass{ background:#dce8e0; color:var(--performance-green); }
+  .status-pill.limited{ background:#f2e4c4; color:var(--deep-gold); }
+  .status-pill.unscored{ background:var(--parchment-line); color:#8a8378; }
+  .sc-results-table td.note{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:#3a4a3f; }
+
+  .sc-item{
+    border-left:3px solid var(--deep-gold); padding:8px 0 8px 16px; margin-bottom:14px;
+  }
+  .sc-item:last-child{ margin-bottom:0; }
+  .sc-item-name{ font-family:'DM Sans',sans-serif; font-weight:700; font-size:13.5px; color:var(--deep-forest); }
+  .sc-item-detail{ font-family:'Cormorant Garamond',serif; font-size:15px; color:#3a4a3f; margin-top:2px; line-height:1.5; }
+  .sc-empty{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:#8a8378; }
+
+  .sc-visual-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .sc-visual-grid{ grid-template-columns:1fr; } }
+  .sc-visual-box{
+    border:1px solid var(--parchment-line); background:var(--parchment); min-height:160px;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .sc-visual-box img{ max-width:100%; max-height:220px; object-fit:contain; }
+  .sc-visual-caption{ font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--deep-gold); text-align:center; margin-top:6px; }
+
+  .sc-footer{
+    padding:18px 40px; background:var(--parchment); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+  }
+  .sc-footer-brand{ font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.08em; color:var(--deep-forest); }
+  .sc-footer-brand span{ color:var(--deep-gold); }
+  .sc-footer-meta{ font-family:'DM Mono',monospace; font-size:9.5px; color:#8a8378; }
+
+  .action-bar{ display:flex; gap:12px; margin:20px 0 0; flex-wrap:wrap; }
+  .email-hint{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5px; color:var(--deep-gold);
+    margin:10px 0 30px; max-width:520px;
+  }
+  .email-hint strong{ font-style:normal; color:var(--studio-dark); }
+
+  @media print{
+    body{ background:#fff; }
+    .app-header, .card, .action-bar{ display:none !important; }
+    #scorecard-output{ display:block !important; }
+    .shell{ max-width:none; padding:0; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- APP HEADER -->
+  <div class="app-header">
+    <div class="eyebrow">SmashFactor Golf Performance — Internal Tool</div>
+    <div class="app-title">Swing &amp; Body Diagnostic <span>Scorecard Generator</span></div>
+    <div class="app-sub">Fill in results post-session, generate a client-ready scorecard on the spot.</div>
+  </div>
+
+  <!-- SESSION INFO -->
+  <div class="card">
+    <div class="card-head"><h2>Session Info</h2></div>
+    <div class="card-body">
+      <div class="field-grid">
+        <div class="field"><label for="clientName">Client Name</label><input type="text" id="clientName" placeholder="e.g. Mike Thompson"></div>
+        <div class="field"><label for="sessionDate">Session Date</label><input type="date" id="sessionDate"></div>
+        <div class="field"><label for="sessionNum">Session #</label><input type="text" id="sessionNum" placeholder="e.g. 1"></div>
+        <div class="field"><label for="coachName">Coach</label><input type="text" id="coachName" placeholder="e.g. Brandon"></div>
+        <div class="field"><label for="clientEmail">Client Email (optional)</label><input type="text" id="clientEmail" placeholder="e.g. client@email.com"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TPI SCREENS -->
+  <div class="card">
+    <div class="card-head"><h2>TPI Screen Results</h2></div>
+    <div class="card-body" id="screenList"></div>
+  </div>
+
+  <!-- VISUAL REFERENCE -->
+  <div class="card">
+    <div class="card-head"><h2>Visual Reference</h2></div>
+    <div class="card-body">
+      <div class="upload-grid">
+        <div class="upload-box" id="uploadBox1">
+          <label class="upload-btn">Upload Sportsbox Grab<input type="file" accept="image/*" id="fileSportsbox"></label>
+          <div class="upload-caption">Optional — appears on the scorecard</div>
+        </div>
+        <div class="upload-box" id="uploadBox2">
+          <label class="upload-btn">Upload Swing Screenshot<input type="file" accept="image/*" id="fileSwing"></label>
+          <div class="upload-caption">Optional — appears on the scorecard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="generateBtn">Generate Scorecard</button>
+    <button class="btn btn-secondary" id="resetBtn">Reset / New Client</button>
+  </div>
+
+  <!-- GENERATED OUTPUT -->
+  <div id="scorecard-output">
+    <div class="sc-header">
+      <div class="sc-brand">SMASHFACTOR <span>GOLF PERFORMANCE</span></div>
+      <div class="sc-tag">Swing &amp; Body Diagnostic — Session Scorecard</div>
+      <div class="sc-meta">
+        <div class="sc-meta-item">Client<strong id="outClient">—</strong></div>
+        <div class="sc-meta-item">Date<strong id="outDate">—</strong></div>
+        <div class="sc-meta-item">Session #<strong id="outSession">—</strong></div>
+        <div class="sc-meta-item">Coach<strong id="outCoach">—</strong></div>
+      </div>
+    </div>
+
+    <div class="sc-section">
+      <div class="sc-section-tag">TPI Screen Results</div>
+      <table class="sc-results-table"><tbody id="outResultsTable"></tbody></table>
+    </div>
+
+    <div class="sc-section">
+      <div class="sc-section-tag">Recommended Corrections</div>
+      <div id="outCorrections"></div>
+    </div>
+
+    <div class="sc-section">
+      <div class="sc-section-tag">Movement Patterns To Reinforce</div>
+      <div id="outPatterns"></div>
+    </div>
+
+    <div class="sc-section">
+      <div class="sc-section-tag">Visual Reference</div>
+      <div class="sc-visual-grid">
+        <div>
+          <div class="sc-visual-box" id="outVisual1"><span class="sc-empty">No image uploaded</span></div>
+          <div class="sc-visual-caption">Sportsbox Screen Grab</div>
+        </div>
+        <div>
+          <div class="sc-visual-box" id="outVisual2"><span class="sc-empty">No image uploaded</span></div>
+          <div class="sc-visual-caption">Swing Screenshot</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-footer">
+      <div class="sc-footer-brand">SMASHFACTOR <span>GOLF PERFORMANCE</span></div>
+      <div class="sc-footer-meta">Charleston, SC · TPI Fitness Level 2 Certified</div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-primary" id="printBtn">Print / Save as PDF</button>
+      <button class="btn btn-secondary" id="emailBtn">Email to Client</button>
+    </div>
+    <div class="email-hint" id="emailHint">Tip: click <strong>Print / Save as PDF</strong> first and save the file — then use <strong>Email to Client</strong> and attach it in the email that opens.</div>
+  </div>
+
+</div>
+
+<script>
+// ---- Reference data: mirrors the Excel Reference tab. Edit here to change corrections/cues. ----
+const TPI_SCREENS = [
+  {
+    name: "Pelvic Tilt",
+    fault: "S-Posture / C-Posture / Loss of Posture",
+    correction: "Core stabilization and pelvic control training",
+    pattern: "Posterior pelvic tilt hold; dead bug progression"
+  },
+  {
+    name: "Pelvic Rotation",
+    fault: "Sway / Reverse Spine Angle / reduced hip turn",
+    correction: "Hip internal-external rotation mobility plus glute activation",
+    pattern: "Seated hip rotation stretch; glute bridge with rotation"
+  },
+  {
+    name: "Torso Rotation",
+    fault: "Flat Shoulder Plane / reduced separation / early extension compensation",
+    correction: "Thoracic rotation mobility work",
+    pattern: "Open book stretch; quadruped thoracic rotation"
+  },
+  {
+    name: "Overhead Deep Squat",
+    fault: "Early Extension / Loss of Posture",
+    correction: "Ankle and hip mobility plus core control training",
+    pattern: "Goblet squat hold; hip hinge pattern drill"
+  },
+  {
+    name: "Single Leg Balance",
+    fault: "Sway / Slide / inconsistent weight transfer",
+    correction: "Single-leg stability and proprioception training",
+    pattern: "Single leg balance reach, 3-way"
+  },
+  {
+    name: "Trunk Flexion (Toe Touch)",
+    fault: "Loss of Posture / Early Extension / low back tightness",
+    correction: "Hamstring and low back mobility work",
+    pattern: "Standing toe touch progression; hip hinge drill"
+  },
+  {
+    name: "Seated Trunk Rotation",
+    fault: "Flat Shoulder Plane / reduced backswing turn",
+    correction: "Thoracic and rib cage mobility work",
+    pattern: "Seated rotation with dowel"
+  },
+  {
+    name: "Shoulder Rotation (90/90)",
+    fault: "Flying Elbow / limited backswing width",
+    correction: "Shoulder internal/external rotation mobility",
+    pattern: "90/90 shoulder rotation stretch"
+  },
+  {
+    name: "Lat Test",
+    fault: "Loss of Posture / C-Posture / reduced trunk-to-pelvis separation",
+    correction: "Lat stretching and mobility work",
+    pattern: "Wall lat stretch; foam roller lat release"
+  },
+  {
+    name: "Cervical Rotation",
+    fault: "Restricted head turn / setup posture compensation",
+    correction: "Neck mobility work",
+    pattern: "Cervical rotation stretch"
+  }
+];
+
+// ---- Build the input rows ----
+const screenList = document.getElementById('screenList');
+TPI_SCREENS.forEach((screen, i) => {
+  const row = document.createElement('div');
+  row.className = 'screen-row';
+  row.innerHTML = `
+    <div class="screen-name">${screen.name}</div>
+    <select class="screen-select" id="select-${i}" data-idx="${i}">
+      <option value="">— Not yet scored —</option>
+      <option value="Pass">Pass</option>
+      <option value="Limited">Limited</option>
+    </select>
+  `;
+  screenList.appendChild(row);
+});
+
+// Color the dropdown based on selection
+document.querySelectorAll('.screen-select').forEach(sel => {
+  sel.addEventListener('change', () => {
+    sel.classList.remove('st-pass', 'st-limited');
+    if (sel.value === 'Pass') sel.classList.add('st-pass');
+    if (sel.value === 'Limited') sel.classList.add('st-limited');
+  });
+});
+
+// ---- Image upload previews (kept in memory as data URLs) ----
+let sportsboxImg = null;
+let swingImg = null;
+
+function wireUpload(inputId, boxId, setter) {
+  const input = document.getElementById(inputId);
+  const box = document.getElementById(boxId);
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setter(ev.target.result);
+      box.innerHTML = `<img src="${ev.target.result}" alt="preview">`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+wireUpload('fileSportsbox', 'uploadBox1', (v) => sportsboxImg = v);
+wireUpload('fileSwing', 'uploadBox2', (v) => swingImg = v);
+
+// ---- Generate scorecard ----
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  const [y, m, d] = dateStr.split('-');
+  return `${m}/${d}/${y}`;
+}
+
+document.getElementById('generateBtn').addEventListener('click', () => {
+  const client = document.getElementById('clientName').value.trim() || '—';
+  const date = formatDate(document.getElementById('sessionDate').value);
+  const session = document.getElementById('sessionNum').value.trim() || '—';
+  const coach = document.getElementById('coachName').value.trim() || '—';
+
+  document.getElementById('outClient').textContent = client;
+  document.getElementById('outDate').textContent = date;
+  document.getElementById('outSession').textContent = session;
+  document.getElementById('outCoach').textContent = coach;
+
+  const resultsBody = document.getElementById('outResultsTable');
+  const correctionsDiv = document.getElementById('outCorrections');
+  const patternsDiv = document.getElementById('outPatterns');
+  resultsBody.innerHTML = '';
+  correctionsDiv.innerHTML = '';
+  patternsDiv.innerHTML = '';
+
+  let limitedCount = 0;
+
+  TPI_SCREENS.forEach((screen, i) => {
+    const val = document.getElementById(`select-${i}`).value;
+    const pillClass = val === 'Pass' ? 'pass' : val === 'Limited' ? 'limited' : 'unscored';
+    const pillText = val || 'Not Scored';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="name">${screen.name}</td>
+      <td class="status"><span class="status-pill ${pillClass}">${pillText}</span></td>
+      <td class="note">${val === 'Limited' ? screen.fault : ''}</td>
+    `;
+    resultsBody.appendChild(tr);
+
+    if (val === 'Limited') {
+      limitedCount++;
+      const cItem = document.createElement('div');
+      cItem.className = 'sc-item';
+      cItem.innerHTML = `<div class="sc-item-name">${screen.name}</div><div class="sc-item-detail">${screen.correction}</div>`;
+      correctionsDiv.appendChild(cItem);
+
+      const pItem = document.createElement('div');
+      pItem.className = 'sc-item';
+      pItem.innerHTML = `<div class="sc-item-name">${screen.name}</div><div class="sc-item-detail">${screen.pattern}</div>`;
+      patternsDiv.appendChild(pItem);
+    }
+  });
+
+  if (limitedCount === 0) {
+    correctionsDiv.innerHTML = '<div class="sc-empty">No limitations found — no corrections needed at this time.</div>';
+    patternsDiv.innerHTML = '<div class="sc-empty">No limitations found — no reinforcement patterns needed at this time.</div>';
+  }
+
+  document.getElementById('outVisual1').innerHTML = sportsboxImg
+    ? `<img src="${sportsboxImg}" alt="Sportsbox grab">`
+    : '<span class="sc-empty">No image uploaded</span>';
+  document.getElementById('outVisual2').innerHTML = swingImg
+    ? `<img src="${swingImg}" alt="Swing screenshot">`
+    : '<span class="sc-empty">No image uploaded</span>';
+
+  document.getElementById('scorecard-output').classList.add('visible');
+  document.getElementById('scorecard-output').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ---- Reset ----
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('clientName').value = '';
+  document.getElementById('sessionDate').value = '';
+  document.getElementById('sessionNum').value = '';
+  document.getElementById('coachName').value = '';
+  document.querySelectorAll('.screen-select').forEach(sel => {
+    sel.value = '';
+    sel.classList.remove('st-pass', 'st-limited');
+  });
+  sportsboxImg = null;
+  swingImg = null;
+  document.getElementById('uploadBox1').innerHTML = `<label class="upload-btn">Upload Sportsbox Grab<input type="file" accept="image/*" id="fileSportsbox"></label><div class="upload-caption">Optional — appears on the scorecard</div>`;
+  document.getElementById('uploadBox2').innerHTML = `<label class="upload-btn">Upload Swing Screenshot<input type="file" accept="image/*" id="fileSwing"></label><div class="upload-caption">Optional — appears on the scorecard</div>`;
+  wireUpload('fileSportsbox', 'uploadBox1', (v) => sportsboxImg = v);
+  wireUpload('fileSwing', 'uploadBox2', (v) => swingImg = v);
+  document.getElementById('scorecard-output').classList.remove('visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ---- Print ----
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+// ---- Email to client (mailto — pre-fills subject/body, attach the saved PDF manually) ----
+document.getElementById('emailBtn').addEventListener('click', () => {
+  const client = document.getElementById('clientName').value.trim() || 'there';
+  const date = formatDate(document.getElementById('sessionDate').value);
+  const coach = document.getElementById('coachName').value.trim() || 'Your Coach';
+  const email = document.getElementById('clientEmail').value.trim();
+
+  if (!document.getElementById('scorecard-output').classList.contains('visible')) {
+    alert('Generate the scorecard first, then use Email to Client.');
+    return;
+  }
+
+  let corrections = [];
+  let patterns = [];
+  TPI_SCREENS.forEach((screen, i) => {
+    const val = document.getElementById(`select-${i}`).value;
+    if (val === 'Limited') {
+      corrections.push(`- ${screen.name}: ${screen.correction}`);
+      patterns.push(`- ${screen.name}: ${screen.pattern}`);
+    }
+  });
+
+  const subject = `Your Swing & Body Diagnostic Results — ${date}`;
+  let body = `Hi ${client},\n\n`;
+  body += `Thanks for coming in for your Swing & Body Diagnostic. Here's a summary of what we found:\n\n`;
+  body += `RECOMMENDED CORRECTIONS:\n`;
+  body += corrections.length ? corrections.join('\n') : '(No limitations found — nothing to correct at this time.)';
+  body += `\n\nMOVEMENT PATTERNS TO REINFORCE:\n`;
+  body += patterns.length ? patterns.join('\n') : '(No limitations found.)';
+  body += `\n\nThe full scorecard is attached as a PDF — if you saved it before clicking this button, just attach it here.\n\n`;
+  body += `Talk soon,\n${coach}\nSmashFactor Golf Performance`;
+
+  const mailtoLink = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoLink;
+});
+</script>
+</body>
+</html>
