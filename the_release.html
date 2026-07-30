@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Release — Smash Factor Golf Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green-deep:#071210;--green-dark:#0a1810;--green-mid:#122018;--green-border:#1e3828;
+  --green-perf:#2d6a4f;--green-sig:#52b788;--gold:#c9a84c;--gold-deep:#8a6820;--gold-light:#e8c97a;
+  --parchment:#f5f0e8;--text-light:#f5f0e8;--text-muted:#8ab89a;--text-dim:#4a7a5a;--text-body:#c8d8c0;
+}
+html{scroll-behavior:smooth}
+body{background:var(--green-deep);color:var(--text-light);font-family:'Cormorant Garamond',serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+@media print{.no-print{display:none!important}body{background:white;color:#111}.reason::before{display:none}}
+.document{max-width:800px;margin:0 auto;padding:0 24px 80px}
+
+/* ── COVER ── */
+.cover{min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 40px;position:relative;overflow:hidden}
+.cover::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(45,106,79,.18) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(201,168,76,.08) 0%,transparent 50%);pointer-events:none;z-index:0}
+.cover-inner{position:relative;z-index:1;max-width:620px}
+.cover-eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:24px}
+.cover-title{font-family:'Cinzel',serif;font-size:clamp(34px,6vw,54px);font-weight:600;color:var(--text-light);line-height:1.1;letter-spacing:.04em;margin-bottom:16px}
+.cover-title em{color:var(--gold);font-style:normal}
+.cover-rule{width:80px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto}
+.cover-subtitle{font-size:clamp(16px,2.5vw,21px);font-weight:300;font-style:italic;color:var(--text-muted);line-height:1.65;max-width:520px;margin:0 auto 32px}
+.cover-byline{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase;line-height:2.2}
+.cover-includes{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px}
+.cover-tag{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.16em;color:var(--text-dim);border:0.5px solid var(--green-border);padding:6px 14px;border-radius:2px;text-transform:uppercase}
+button.cover-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1;background:none;border:none;cursor:pointer;padding:0}
+.cover-scroll span{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--gold),transparent);animation:scrollpulse 2s ease-in-out infinite}
+@keyframes scrollpulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* ── GOLD RULE ── */
+.gold-rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold-deep),transparent);margin:0}
+
+/* ── INTRO ── */
+.intro{padding:72px 0 56px;border-bottom:0.5px solid var(--green-border)}
+.intro h2{font-family:'Cinzel',serif;font-size:clamp(19px,2.8vw,25px);font-weight:500;color:var(--text-light);letter-spacing:.05em;margin-bottom:20px;line-height:1.35}
+.intro p{font-size:16.5px;color:var(--text-body);line-height:1.88;margin-bottom:16px}
+.intro p strong{color:var(--text-light);font-weight:500}
+.quote-block{background:var(--green-mid);border-left:2px solid var(--gold);padding:20px 24px;margin:28px 0;border-radius:0 4px 4px 0}
+.quote-block p{font-size:18px;font-style:italic;font-weight:300;color:var(--gold-light);line-height:1.65;margin:0}
+.quote-source{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.16em;color:var(--text-dim);margin-top:10px;display:block}
+.how-to{background:var(--green-mid);border:0.5px solid var(--green-border);border-radius:4px;padding:28px 32px;margin:40px 0 0}
+.how-to-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.how-to-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-to-item{display:flex;flex-direction:column;gap:6px}
+.how-to-num{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--green-border);line-height:1}
+.how-to-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;color:var(--text-muted);text-transform:uppercase}
+.how-to-desc{font-size:14px;color:var(--text-body);line-height:1.6}
+
+/* ── PILLARS (reason blocks) ── */
+.reason{padding:64px 0;border-bottom:0.5px solid var(--green-border);position:relative}
+.reason::before{content:attr(data-num);position:absolute;top:44px;right:-8px;font-family:'Cinzel',serif;font-size:150px;font-weight:700;color:var(--green-border);line-height:1;opacity:.35;user-select:none;pointer-events:none}
+.section-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px;position:relative;z-index:1}
+.section-number{font-family:'Cinzel',serif;font-size:58px;font-weight:600;color:var(--green-border);line-height:1;flex-shrink:0;width:66px;text-align:right;margin-top:-4px;user-select:none}
+.section-title-block{flex:1}
+.section-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,28px);font-weight:600;color:var(--text-light);line-height:1.22;letter-spacing:.03em;margin-bottom:8px}
+.section-subtitle{font-size:16px;font-style:italic;font-weight:300;color:var(--text-muted);line-height:1.5}
+.reason-body{font-size:16.5px;color:var(--text-body);line-height:1.9;margin-bottom:22px;position:relative;z-index:1}
+.reason-body strong{color:var(--text-light);font-weight:500}
+.reason-body em{color:var(--gold-light);font-style:italic}
+
+/* ── SELF ASSESSMENT ── */
+.self-assess{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:4px;overflow:hidden;margin:26px 0;position:relative;z-index:1}
+.sa-header{background:rgba(201,168,76,.12);padding:12px 22px;display:flex;align-items:center;gap:10px;border-bottom:0.5px solid rgba(201,168,76,.2)}
+.sa-header-icon{font-size:16px}
+.sa-header-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+.sa-body{padding:20px 24px}
+.sa-instruction{font-size:15px;color:var(--text-body);line-height:1.75;margin-bottom:16px}
+.sa-instruction strong{color:var(--text-light);font-weight:500}
+.sa-checks{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+button.sa-check{display:flex;align-items:flex-start;gap:12px;background:none;border:none;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%;user-select:none}
+.sa-box{width:18px;height:18px;border-radius:3px;border:1.5px solid rgba(201,168,76,.4);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:transparent}
+.sa-box.checked{background:var(--gold);border-color:var(--gold)}
+.sa-check-mark{display:none;color:var(--green-deep);font-size:11px;font-weight:700;line-height:1}
+.sa-box.checked .sa-check-mark{display:block}
+.sa-check-text{font-size:15px;color:var(--text-body);line-height:1.55;padding-top:1px}
+.sa-verdict{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;color:var(--text-dim);font-style:italic;border-top:0.5px solid rgba(201,168,76,.15);padding-top:14px;margin-top:4px;line-height:1.8;text-transform:uppercase}
+.sa-verdict em{color:var(--gold);font-style:normal}
+
+/* ── FIX BOX ── */
+.fix-box{background:linear-gradient(135deg,rgba(45,106,79,.14) 0%,rgba(7,18,16,.4) 100%);border:0.5px solid var(--green-perf);border-radius:4px;overflow:hidden;margin:24px 0;position:relative;z-index:1}
+.fix-header{background:var(--green-perf);padding:10px 20px}
+.fix-header-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;color:var(--parchment);text-transform:uppercase}
+.fix-body{padding:20px 24px;font-size:15.5px;color:var(--text-body);line-height:1.82}
+.fix-body strong{color:var(--text-light);font-weight:500}
+
+/* ── STAT CALLOUT ── */
+.stat-callout{display:flex;align-items:center;gap:24px;padding:22px 28px;background:rgba(201,168,76,.07);border:0.5px solid rgba(201,168,76,.22);border-radius:4px;margin:24px 0;position:relative;z-index:1}
+.stat-num{font-family:'Cinzel',serif;font-size:44px;font-weight:600;color:var(--gold);line-height:1;flex-shrink:0}
+.stat-text{font-size:15px;color:var(--text-muted);line-height:1.65;font-style:italic}
+
+/* ── SCORECARD ── */
+.scorecard-section{padding:64px 0;border-bottom:0.5px solid var(--green-border)}
+.scorecard-intro{font-size:16.5px;color:var(--text-body);line-height:1.85;margin-bottom:32px}
+.scorecard-intro strong{color:var(--text-light);font-weight:500}
+.scorecard-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+button.score-row{display:flex;align-items:center;gap:16px;background:var(--green-mid);border:0.5px solid var(--green-border);border-radius:4px;padding:16px 20px;cursor:pointer;transition:border-color .2s;width:100%;text-align:left;font:inherit;color:inherit}
+button.score-row:hover{border-color:var(--green-perf)}
+button.score-row.selected{border-color:var(--gold);background:rgba(201,168,76,.06)}
+.score-checkbox{width:20px;height:20px;border-radius:3px;border:1.5px solid var(--green-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+button.score-row.selected .score-checkbox{background:var(--gold);border-color:var(--gold)}
+.score-checkmark{display:none;color:var(--green-deep);font-size:12px;font-weight:700;line-height:1}
+button.score-row.selected .score-checkmark{display:block}
+.score-content{flex:1}
+.score-title{font-family:'Cinzel',serif;font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--text-light);margin-bottom:3px}
+.score-desc{font-size:13.5px;color:var(--text-muted)}
+.score-tally{background:var(--green-mid);border:0.5px solid var(--green-border);border-radius:4px;padding:24px 28px;text-align:center}
+.score-tally-num{font-family:'Cinzel',serif;font-size:50px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:8px}
+.score-tally-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.22em;color:var(--text-dim);text-transform:uppercase;margin-bottom:16px}
+.score-tally-msg{font-size:16px;font-style:italic;color:var(--text-muted);line-height:1.65}
+
+/* ── PROTOCOL / DRILLS ── */
+.protocol-section{padding:64px 0;border-bottom:0.5px solid var(--green-border)}
+.protocol-intro{font-size:16px;color:var(--text-body);line-height:1.85;margin-bottom:24px}
+.protocol-intro strong{color:var(--text-light);font-weight:500}
+.protocol-note{background:rgba(201,168,76,.06);border:0.5px solid rgba(201,168,76,.2);border-radius:4px;padding:14px 20px;font-size:14px;font-style:italic;color:var(--text-muted);margin-bottom:32px;line-height:1.65}
+.exercise-grid{display:flex;flex-direction:column;gap:16px;margin-bottom:8px}
+.exercise-card{background:var(--green-mid);border:0.5px solid var(--green-border);border-radius:4px;overflow:hidden}
+.exercise-header{display:flex;align-items:center;background:var(--green-border)}
+.ex-num{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--gold);padding:10px 16px;border-right:0.5px solid rgba(255,255,255,.1);flex-shrink:0;min-width:44px;text-align:center}
+.ex-name{font-family:'Cinzel',serif;font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--text-light);padding:10px 16px;flex:1;text-transform:uppercase}
+.ex-target{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.14em;color:var(--text-dim);padding:10px 16px;text-transform:uppercase;flex-shrink:0}
+.exercise-body{padding:20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+.ex-instructions{font-size:14.5px;color:var(--text-body);line-height:1.75}
+.ex-instructions strong{color:var(--text-light);font-weight:500}
+.ex-sets{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:rgba(7,18,16,.5);border:0.5px solid var(--green-border);border-radius:4px;padding:12px 14px;min-width:84px;flex-shrink:0}
+.ex-sets-num{font-family:'Cinzel',serif;font-size:19px;font-weight:600;color:var(--gold);line-height:1;text-align:center}
+.ex-sets-label{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.12em;color:var(--text-dim);text-transform:uppercase;text-align:center;line-height:1.6}
+@media(max-width:560px){.exercise-body{grid-template-columns:1fr}.ex-sets{flex-direction:row;min-width:0;justify-content:flex-start;gap:8px}}
+
+/* ── ORDER STRIP ── */
+.order-strip{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0}
+.order-chip{flex:1;min-width:120px;background:var(--green-mid);border:0.5px solid var(--green-border);border-radius:4px;padding:14px 16px;text-align:center}
+.order-chip.active{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.order-chip-num{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px}
+.order-chip-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;color:var(--text-light);font-weight:500}
+
+/* ── CLOSING ── */
+.closing{padding:64px 0 40px;text-align:center}
+.closing-mark{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.closing-title{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,26px);font-weight:600;color:var(--text-light);margin-bottom:16px;line-height:1.3}
+.closing-body{font-size:16px;color:var(--text-body);line-height:1.85;max-width:560px;margin:0 auto 8px}
+.closing-foot{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase;margin-top:40px}
+.closing-foot span{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-inner">
+      <div class="cover-eyebrow">Smash Factor Golf Performance</div>
+      <h1 class="cover-title">The <em>Release</em></h1>
+      <div class="cover-rule"></div>
+      <p class="cover-subtitle">The 3 checkpoints that turn stored power into clubhead speed — and how to tell which one is costing you distance off the tee.</p>
+      <div class="cover-byline">Client Reference Guide &nbsp;·&nbsp; Charleston, SC &nbsp;·&nbsp; TPI Fitness Level 2 Certified</div>
+      <div class="cover-includes">
+        <div class="cover-tag">3 Power Checkpoints</div>
+        <div class="cover-tag">Self-Assessments</div>
+        <div class="cover-tag">At-Home Drills</div>
+      </div>
+    </div>
+    <button class="cover-scroll no-print" onclick="document.querySelector('.intro').scrollIntoView({behavior:'smooth'})">
+      <span>Begin</span>
+      <div class="scroll-line"></div>
+    </button>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <h2>What the release actually is</h2>
+    <p>Every ounce of speed you build in the backswing has to get delivered somewhere — that delivery moment is the <strong>release</strong>. It's not just "when your wrists uncock." It's the last link in a chain that starts at your feet and ends at the ball, and it's usually where a well-built swing either cashes in on its speed or leaks it away in the final few inches.</p>
+    <p>Most golfers try to fix the release by thinking about their hands. But the hands are the <strong>last</strong> thing to move — they're simply reporting what happened earlier in the chain. That's why this guide walks through the release as three checkpoints, in the order your body actually uses them, instead of one isolated hand move.</p>
+    <div class="quote-block">
+      <p>"You can't cue your way into a better release if your body physically can't get there. Fix what's blocking the movement first — the release usually fixes itself."</p>
+      <span class="quote-source">— The Smash Factor Coaching Philosophy</span>
+    </div>
+    <div class="how-to">
+      <div class="how-to-title">How to use this guide</div>
+      <div class="how-to-grid">
+        <div class="how-to-item">
+          <div class="how-to-num">01</div>
+          <div class="how-to-label">Read the 3 checkpoints</div>
+          <div class="how-to-desc">Each one builds on the last — sequence, ground force, then wrist control.</div>
+        </div>
+        <div class="how-to-item">
+          <div class="how-to-num">02</div>
+          <div class="how-to-label">Run the self-checks</div>
+          <div class="how-to-desc">Simple tests you can do right now, at home or on the range.</div>
+        </div>
+        <div class="how-to-item">
+          <div class="how-to-num">03</div>
+          <div class="how-to-label">Start the matching drill</div>
+          <div class="how-to-desc">Each checkpoint has one focused drill to start building it today.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKPOINT 01 — SEQUENCE -->
+  <section class="reason" data-num="01">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div class="section-title-block">
+        <div class="section-eyebrow">Checkpoint one — the order of the chain</div>
+        <h2 class="section-title">Body Leads, Club Follows Last</h2>
+        <div class="section-subtitle">Speed is built in an order — and the club should always be last to move</div>
+      </div>
+    </div>
+    <p class="reason-body">A powerful downswing always fires in the same order: <strong>hips, then torso, then arms, then club.</strong> Each part hands off speed to the next like a whip cracking — your hips slow down so your torso can speed up, your torso slows down so your arms can speed up, and by the time the club arrives at the ball, it's moving faster than anything else in the swing. That's the goal every time: the club should still be gaining speed as it reaches the ball, not before.</p>
+    <p class="reason-body">When that order breaks — most commonly when the arms and hands take over early because the hips and torso didn't lead — the club runs out of speed to gain before it even gets to the ball. That's what an early release, or "casting," actually is: your hands trying to create speed the rest of your body didn't hand off to them.</p>
+
+    <div class="self-assess">
+      <div class="sa-header"><span class="sa-header-icon">🎯</span><span class="sa-header-label">Self-Check — Try This Now</span></div>
+      <div class="sa-body">
+        <p class="sa-instruction"><strong>The mirror pause test:</strong> Take a slow-motion practice swing and freeze the moment your hands reach hip-height on the downswing. Look in a mirror or check a video.</p>
+        <div class="sa-checks">
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Your wrist angle from the top of the swing is already gone at this point</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Your shoulders and hips look like they've barely turned toward the target</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">You feel like your arms and hands are doing most of the work</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Your coach or playing partners have mentioned "casting" or an early release</div></button>
+        </div>
+        <div class="sa-verdict">If you checked one or more — your body is likely releasing early to compensate. <em>The TPI screen shows exactly which link in the chain is breaking down.</em></div>
+      </div>
+    </div>
+
+    <div class="fix-box">
+      <div class="fix-header"><div class="fix-header-label">Start here</div></div>
+      <div class="fix-body"><strong>The step-and-swing drill:</strong> Set up normally, take a small step toward the target with your lead foot as you start the downswing, then swing. Stepping forces your lower body to move first — which is exactly the order your hips, torso, and arms are supposed to fire in. Most golfers feel their "lag" hold longer almost immediately, without thinking about their hands at all.</div>
+    </div>
+  </section>
+
+  <!-- CHECKPOINT 02 — GROUND FORCE -->
+  <section class="reason" data-num="02">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <div class="section-title-block">
+        <div class="section-eyebrow">Checkpoint two — where the power comes from</div>
+        <h2 class="section-title">Load, Then Explode</h2>
+        <div class="section-subtitle">The ground is your first power source — long before your hands ever enter the picture</div>
+      </div>
+    </div>
+    <p class="reason-body">Before your arms or hands do anything, your body should already be pushing against the ground. Think of it like a small vertical jump timed to the start of your downswing: you settle down slightly into your transition, then drive up and rotate against the ground as you swing through. Players who hit it far aren't just swinging harder with their arms — they're using the ground to build speed before the club ever starts moving.</p>
+    <p class="reason-body">Skip this step and your body has to make up the missing power somewhere else — usually with extra hand and arm effort, which is the same early-release pattern from Checkpoint One. This is also why a driver swing should feel different from a wedge swing: driver swings ask far more of the ground.</p>
+
+    <div class="stat-callout">
+      <div class="stat-num">↑</div>
+      <div class="stat-text">Your vertical jump height is one of the best simple predictors of your ceiling for clubhead speed — golfers who can produce more force against the ground tend to produce more speed at impact.</div>
+    </div>
+
+    <div class="self-assess">
+      <div class="sa-header"><span class="sa-header-icon">🎯</span><span class="sa-header-label">Self-Check — Try This Now</span></div>
+      <div class="sa-body">
+        <p class="sa-instruction"><strong>The flat-footed swing test:</strong> Make three full practice swings trying to keep both feet glued flat to the ground the entire time. Then make three more swings allowing your feet and lower body to move naturally.</p>
+        <div class="sa-checks">
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Both versions felt basically the same — you didn't notice much of a speed drop-off when staying flat</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">You have no sense of "pushing down" into the ground during your downswing</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Your driver swing feels like a bigger version of your wedge swing, not a different gear entirely</div></button>
+        </div>
+        <div class="sa-verdict">If you checked one or more — you're likely leaving ground-force speed on the table. <em>A TPI screen and simple jump test can confirm your current ceiling.</em></div>
+      </div>
+    </div>
+
+    <div class="fix-box">
+      <div class="fix-header"><div class="fix-header-label">Start here</div></div>
+      <div class="fix-body"><strong>The squat-and-swing drill:</strong> At the top of your backswing, add a small, deliberate knee bend — like the very start of a jump — before you start down. Feel your weight settle into both feet, then drive up and rotate as you swing through. Exaggerate it on slow practice swings first so the timing becomes automatic before you take it to full speed.</div>
+    </div>
+  </section>
+
+  <!-- CHECKPOINT 03 — WRIST CONTROL -->
+  <section class="reason" data-num="03">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div class="section-title-block">
+        <div class="section-eyebrow">Checkpoint three — squaring the face</div>
+        <h2 class="section-title">Stop the Flip</h2>
+        <div class="section-subtitle">The last few inches decide whether all that stored speed actually finds the ball</div>
+      </div>
+    </div>
+    <p class="reason-body">By the time the club reaches the ball, your lead wrist should be flat or very slightly bowed — not breaking down or "cupping." A cupped or flipped lead wrist opens the clubface, which is the classic amateur move to try to square a face that's arriving open. It feels like extra effort, but it actually costs you both speed and consistency.</p>
+    <p class="reason-body">Here's the part most golfers get backwards: your <strong>trail</strong> hand is what should feel active and fast through impact — not your lead wrist. Your lead side's job late in the downswing is to stay stable and hold its angle, while your trail hand and forearm do the work of squaring the face. If you're consciously trying to "flip the club through" with your lead hand, you're fighting your own swing.</p>
+
+    <div class="self-assess">
+      <div class="sa-header"><span class="sa-header-icon">🎯</span><span class="sa-header-label">Self-Check — Try This Now</span></div>
+      <div class="sa-body">
+        <p class="sa-instruction"><strong>The impact-position freeze:</strong> Take a slow-motion swing and freeze right at the point where the club would strike the ball. Check your lead wrist in a mirror or on video.</p>
+        <div class="sa-checks">
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">Your lead wrist looks bent backward, like the back of your hand is folding toward your forearm</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">You typically hit a lot of weak, high shots — or an occasional big miss right or left</div></button>
+          <button class="sa-check" type="button"><div class="sa-box"><span class="sa-check-mark">✓</span></div><div class="sa-check-text">You feel like you have to actively "flip" or "release" the clubhead with your hands to square the face</div></button>
+        </div>
+        <div class="sa-verdict">If you checked one or more — a cupped or flipping lead wrist is likely costing you distance and consistency. <em>A HackMotion or TPI-based swing screen can measure this precisely.</em></div>
+      </div>
+    </div>
+
+    <div class="fix-box">
+      <div class="fix-header"><div class="fix-header-label">Start here</div></div>
+      <div class="fix-body"><strong>The impact-bag hold drill:</strong> Set an impact bag (or a folded towel) in front of your ball position. Make slow, deliberate swings into it, stopping right at contact. Focus on keeping the back of your lead hand facing slightly toward the target, not folding backward. Once that flat-wrist feeling is repeatable slow, gradually add speed.</div>
+    </div>
+  </section>
+
+  <div class="gold-rule"></div>
+
+  <!-- SCORECARD -->
+  <section class="scorecard-section">
+    <div class="section-header" style="margin-bottom:28px">
+      <div class="section-title-block">
+        <div class="section-eyebrow">Put it together</div>
+        <h2 class="section-title">Your Release Scorecard</h2>
+        <div class="section-subtitle">Check every box you recognized above — this is your starting point</div>
+      </div>
+    </div>
+    <p class="scorecard-intro">You've just run through <strong>three self-checks.</strong> Tally which checkpoints showed a flag — that tells you where to focus first.</p>
+    <div class="scorecard-grid">
+      <button class="score-row" type="button" onclick="this.classList.toggle('selected')">
+        <div class="score-checkbox"><span class="score-checkmark">✓</span></div>
+        <div class="score-content"><div class="score-title">Checkpoint 01 — Sequence</div><div class="score-desc">Hands and arms take over before the body leads</div></div>
+      </button>
+      <button class="score-row" type="button" onclick="this.classList.toggle('selected')">
+        <div class="score-checkbox"><span class="score-checkmark">✓</span></div>
+        <div class="score-content"><div class="score-title">Checkpoint 02 — Ground Force</div><div class="score-desc">No real sense of loading and driving against the ground</div></div>
+      </button>
+      <button class="score-row" type="button" onclick="this.classList.toggle('selected')">
+        <div class="score-checkbox"><span class="score-checkmark">✓</span></div>
+        <div class="score-content"><div class="score-title">Checkpoint 03 — Wrist Control</div><div class="score-desc">Lead wrist cups or flips through impact</div></div>
+      </button>
+    </div>
+    <div class="score-tally">
+      <div class="score-tally-msg">Flagging more than one checkpoint is completely normal — they build on each other, so an early breakdown in Checkpoint 01 or 02 often shows up as a wrist compensation in Checkpoint 03. Work them in order.</div>
+    </div>
+  </section>
+
+  <!-- PROTOCOL / ORDER OF OPERATIONS -->
+  <section class="protocol-section">
+    <div class="section-header" style="margin-bottom:28px">
+      <div class="section-title-block">
+        <div class="section-eyebrow">Why order matters</div>
+        <h2 class="section-title">Fix It In This Order</h2>
+        <div class="section-subtitle">Skipping ahead to speed work before the foundation is built rarely holds up</div>
+      </div>
+    </div>
+    <p class="protocol-intro">It's tempting to jump straight to speed training or a release drill. But if a physical restriction — tight hips, a limited mid-back turn, a weak glute — is what's actually blocking the sequence, drilling the release just grooves the compensation at higher speed. This is the order that actually builds a release that holds up on the course.</p>
+    <div class="order-strip">
+      <div class="order-chip active"><div class="order-chip-num">Step 1</div><div class="order-chip-label">Mobility</div></div>
+      <div class="order-chip"><div class="order-chip-num">Step 2</div><div class="order-chip-label">Stability</div></div>
+      <div class="order-chip"><div class="order-chip-num">Step 3</div><div class="order-chip-label">Sequencing</div></div>
+      <div class="order-chip"><div class="order-chip-num">Step 4</div><div class="order-chip-label">Ground Force</div></div>
+      <div class="order-chip"><div class="order-chip-num">Step 5</div><div class="order-chip-label">Speed Work</div></div>
+    </div>
+    <div class="protocol-note">The three drills in this guide live in Steps 3–5. If your TPI screen shows a restriction feeding one of your flagged checkpoints, that gets addressed first — the drill will click much faster once it does.</div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="closing-mark">Next Step</div>
+    <div class="closing-title">Find out which checkpoint is really the limiter</div>
+    <p class="closing-body">Self-checks are a great starting point, but they can't tell you <em>why</em> a checkpoint is breaking down. A 60-minute Swing & Body Assessment measures your hip rotation, glute firing, thoracic mobility, and wrist mechanics directly — so the drills you work on are the ones that will actually move the needle.</p>
+    <div class="closing-foot">Smash Factor Golf Performance &nbsp;·&nbsp; <span>Charleston, SC</span> &nbsp;·&nbsp; TPI Fitness Level 2 Certified</div>
+  </section>
+
+</div>
+</body>
+</html>
